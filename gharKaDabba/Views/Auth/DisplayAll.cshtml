@@ -1,0 +1,21 @@
+﻿@using BOL;
+@{
+    ViewData["Title"] = "AllUsers";
+}
+
+<div >
+    <h1 class="display-4">Register Customers</h1>
+    <hr/>
+    <ol>
+    @{
+        List<Customer> custData = (List<Customer>)ViewData["custData"];
+        <ol>
+            @foreach( Customer cust in custData ){
+                <li>@cust.Email</li>
+            }    
+        </ol>
+    }
+    </ol>
+    
+  
+</div>
