@@ -38,4 +38,36 @@ public class DBManager{
             }
             return allCustomers;
     }
+
+    public static Customer SignIn(string c_email,string c_password){
+            Customer tempCustomer=null;
+            MySqlConnection con=new MySqlConnection();
+            con.ConnectionString=conString;
+            try{
+                con.Open();
+                MySqlCommand cmd=new MySqlCommand();
+                cmd.Connection=con;
+                string query="CALL signIn('"+c_email+"','"+c_password+"');";
+                cmd.CommandText=query;
+                MySqlDataReader reader=cmd.ExecuteReader();
+                while(reader.Read()){
+                    int id = int.Parse(reader["cId"].ToString());
+                    string firstName = reader["cFirstName"].ToString();
+                    string lastName = reader["cLastName"].ToString();
+                    string email = reader["cEmail"].ToString();
+                    string password = reader["cPassword"].ToString();
+                    string mobile = reader["cMobile"].ToString();
+                    string registerDate = reader["cRegisterDate"].ToString();
+
+                    tempCustomer=new Customer(id,firstName,lastName,email,password,mobile,registerDate);
+                }
+            }
+            catch(Exception e){
+                Console.WriteLine(e.Message);
+            }
+            finally{
+                    con.Close();
+            }
+            return tempCustomer;
+    }
 }

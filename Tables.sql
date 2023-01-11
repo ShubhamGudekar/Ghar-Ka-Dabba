@@ -1,4 +1,6 @@
+CREATE DATABASE gharKaDabba;
 
+use gharKaDabba;
 
 -- Customer/User Table
 CREATE TABLE customer (
@@ -142,21 +144,21 @@ cPassword varchar(50) NOT NULL,
 cMobile varchar(15) UNIQUE NOT NULL,
 cRegisterDate timestamp default (CURRENT_TIMESTAMP)
 
-INSERT INTO customer 
-		VALUES(default,'Rishal','Mehta','rishalMehta@gmail.com',MD5('rishal'),'0123456789',DEFAULT),
-			  (default,'Shubham','Gudekar','shubhamgudekar@gmail.com',MD5('shubham'),'1234567890',DEFAULT),
-              (default,'Sagar','Satav','sagarsatav@gmail.com',MD5('sagar'),'2345678901',DEFAULT),
-			  (default,'Sourav','Patil','souravpatil@gmail.com',MD5('sourav'),'3456789012',DEFAULT),
-              (default,'Ram','Manjare','rammanjare@gmail.com',MD5('ram'),'4567890123',DEFAULT),
-			  (default,'Abhishek','Shinde','abhishekshinde@gmail.com',MD5('abhishek'),'567890123',DEFAULT),
-              (default,'Runesh','Gazane','runeshgazane@gmail.com',MD5('runesh'),'6789012345',DEFAULT),
-              (default,'Athrava','Jadhav','sakshijadhav@gmail.com',MD5('sakshi'),'7890123456',DEFAULT),
-              (default,'Sujit','Singh','sujitsingh@gmail.com',MD5('sujit'),'8901234567',DEFAULT),
-              (default,'Abhishek','Saswade','abhisheksaswade@gmail.com',MD5('sagar'),'9012345678',DEFAULT);
+INSERT INTO customer VALUES
+(default,'Rishal','Mehta','rishalMehta@gmail.com',MD5('rishal'),'0123456789',DEFAULT),
+(default,'Shubham','Gudekar','shubhamgudekar@gmail.com',MD5('shubham'),'1234567890',DEFAULT),
+(default,'Sagar','Satav','sagarsatav@gmail.com',MD5('sagar'),'2345678901',DEFAULT),
+(default,'Sourav','Patil','souravpatil@gmail.com',MD5('sourav'),'3456789012',DEFAULT),
+(default,'Ram','Manjare','rammanjare@gmail.com',MD5('ram'),'4567890123',DEFAULT),
+(default,'Abhishek','Shinde','abhishekshinde@gmail.com',MD5('abhishek'),'567890123',DEFAULT),
+(default,'Runesh','Gazane','runeshgazane@gmail.com',MD5('runesh'),'6789012345',DEFAULT),
+(default,'Athrava','Jadhav','athravajadhav@gmail.com',MD5('sakshi'),'7890123456',DEFAULT),
+(default,'Sujit','Singh','sujitsingh@gmail.com',MD5('sujit'),'8901234567',DEFAULT),
+(default,'Abhishek','Saswade','abhisheksaswade@gmail.com',MD5('saswade'),'9012345678',DEFAULT);
 	
 	
 DELIMITER $$
-CREATE PROCEDURE verifyUser (in pEmail varchar(50),in pPassword varchar(50))
+CREATE PROCEDURE signIn (in pEmail varchar(50),in pPassword varchar(50))
 BEGIN
 	SELECT *
 	FROM customer
@@ -164,6 +166,3 @@ BEGIN
 END $$
 DELIMITER ;
 
-SELECT cId
-FROM customer
-where cEmail="abhisheksaswade@gmail.com" && MD5('sagar')=cPassword;

@@ -18,6 +18,7 @@ public class AuthController : Controller
         return View();
     }
 
+    [HttpGet]
     public IActionResult SignIn(){
         return View();
     }
@@ -26,14 +27,15 @@ public class AuthController : Controller
         return View();
     }
 
-    public IActionResult ValidateUser(string email,string password){
+    [HttpPost]
+    public IActionResult SignIn(string email,string password){
+        Console.WriteLine(email + "  "+password);
         CustomerManager cm = new CustomerManager();
-        List<Customer> custData = (List<Customer>)cm.GetAllCustomers(); 
-        Customer userFound = custData.Find(cust=>cust.Email.Equals(email)&&cust.Password.Equals(password));
-        // if(userFound==null)
-        //     return RedirectToAction(UserNotFound);
-        // return RedirectToAction(Welcome);
-        return View();
+        Customer custData = (Customer)cm.SignIn(email,password);
+        if(custData==null)
+            return View();
+        return RedirectToAction("Welcome");
+        
     }
 
     public IActionResult Welcome(){
