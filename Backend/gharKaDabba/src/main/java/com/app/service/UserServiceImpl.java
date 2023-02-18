@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -7,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.NewUserDto;
 import com.app.dto.UserDetailsDto;
@@ -22,6 +24,9 @@ public class UserServiceImpl implements UserService {
 
 	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private ImageHandlingService imageService;
 
 	@Override
 	public String registerNewUser(NewUserDto newUserDto) {
@@ -48,9 +53,29 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public String updateUser(User user) {
-		userRepo.save(user);
+	public String updateUser(UserDetailsDto userDetailsDto) {
+		User user = userRepo.findById(userDetailsDto.getId()).orElseThrow();
+		user.setFisrtName(userDetailsDto.getFisrtName());
+		user.setLastName(userDetailsDto.getLastName());
+		user.setEmail(userDetailsDto.getEmail());
+		user.setMobile(user.getMobile());
 		return "User Details Updated Successfully";
 	}
 
+	@Override
+	public String uploadImage(long id, MultipartFile imageFile) throws IOException {
+		User user = userRepo.findById(id).orElseThrow();
+		user.setProfileImage(imageService.uploadImage(imageFile));
+		return "Image Uploaded Successfully";
+	}
+
+	@Override
+	public byte[] getImage(Long id) throws IOException {
+		User user = userRepo.findById(id).orElseThrow();
+		return imageService.getImage(user.getProfileImage());
+		
+	}
+	
+	
+	
 }

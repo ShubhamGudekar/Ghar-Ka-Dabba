@@ -1,10 +1,12 @@
 package com.app.service;
 
+import java.io.IOException;
 import java.util.List;
+
+import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.NewUserDto;
 import com.app.dto.UserDetailsDto;
-import com.app.entities.User;
 
 public interface UserService {
 
@@ -16,6 +18,10 @@ public interface UserService {
 
 	String removeUser(long id);
 
-	String updateUser(User user);
+	String updateUser(UserDetailsDto user);
+	
+	String uploadImage(long id,MultipartFile imageFile) throws IOException;
+
+	byte[] getImage(Long id) throws IOException;
 	
 }

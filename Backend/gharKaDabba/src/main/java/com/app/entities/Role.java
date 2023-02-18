@@ -2,6 +2,6 @@ package com.app.entities;
 
 public enum Role {
 	
-	CUSTOMER,VENDOR,ADMIN
+	ROLE_CUSTOMER,ROLE_VENDOR,ROLE_ADMIN
 	
 }

@@ -15,6 +15,8 @@ public class UserDetailsDto {
 
 	private Long id;
 	
+	private int version;
+	
 	private String fisrtName;
 
 	private String lastName;

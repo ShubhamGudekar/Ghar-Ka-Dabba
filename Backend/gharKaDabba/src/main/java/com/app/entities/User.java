@@ -39,10 +39,11 @@ public class User extends BaseEntity {
 	private String password;
 
 	@Enumerated(EnumType.STRING)
-	@Column(length = 10)
+	@Column(length = 20)
 	private Role userRole;
 
 	@CreationTimestamp
 	private LocalDateTime registerDate;
 
+	private String profileImage;
 }
