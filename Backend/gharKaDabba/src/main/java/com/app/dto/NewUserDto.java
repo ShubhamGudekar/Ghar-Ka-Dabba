@@ -1,6 +1,6 @@
 package com.app.dto;
 
-import com.app.entities.Role;
+import com.app.enums.UserRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -25,5 +25,5 @@ public class NewUserDto {
 
 	private String password;
 
-	private Role userRole;
+	private UserRole userRole;
 }

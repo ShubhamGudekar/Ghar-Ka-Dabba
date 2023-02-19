@@ -12,7 +12,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.NewUserDto;
 import com.app.dto.UserDetailsDto;
-import com.app.entities.User;
+import com.app.entities.UserEntity;
 import com.app.repository.UserRepository;
 
 @Service
@@ -30,7 +30,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String registerNewUser(NewUserDto newUserDto) {
-		User user = userRepo.save(mapper.map(newUserDto, User.class));
+		UserEntity user = userRepo.save(mapper.map(newUserDto, UserEntity.class));
 		return "User Registered Successfully with UserID : " + user.getId();
 	}
 
@@ -41,21 +41,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public UserDetailsDto getUser(long id) {
-		User user = userRepo.findById(id).orElseThrow();
+		UserEntity user = userRepo.findById(id).orElseThrow();
 		return mapper.map(user, UserDetailsDto.class);
 	}
 
 	@Override
 	public String removeUser(long id) {
-		User user = userRepo.findById(id).orElseThrow();
+		UserEntity user = userRepo.findById(id).orElseThrow();
 		userRepo.delete(user);
 		return "User Deleted Successfully";
 	}
 
 	@Override
 	public String updateUser(UserDetailsDto userDetailsDto) {
-		User user = userRepo.findById(userDetailsDto.getId()).orElseThrow();
-		user.setFisrtName(userDetailsDto.getFisrtName());
+		UserEntity user = userRepo.findById(userDetailsDto.getId()).orElseThrow();
+		user.setFirstName(userDetailsDto.getFisrtName());
 		user.setLastName(userDetailsDto.getLastName());
 		user.setEmail(userDetailsDto.getEmail());
 		user.setMobile(user.getMobile());
@@ -64,14 +64,14 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public String uploadImage(long id, MultipartFile imageFile) throws IOException {
-		User user = userRepo.findById(id).orElseThrow();
+		UserEntity user = userRepo.findById(id).orElseThrow();
 		user.setProfileImage(imageService.uploadImage(imageFile));
 		return "Image Uploaded Successfully";
 	}
 
 	@Override
 	public byte[] getImage(Long id) throws IOException {
-		User user = userRepo.findById(id).orElseThrow();
+		UserEntity user = userRepo.findById(id).orElseThrow();
 		return imageService.getImage(user.getProfileImage());
 		
 	}

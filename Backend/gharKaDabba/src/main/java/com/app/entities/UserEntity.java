@@ -6,8 +6,11 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
+
+import com.app.enums.UserRole;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -16,15 +19,16 @@ import lombok.Setter;
 import lombok.ToString;
 
 @Entity
+@Table(name="users")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString(exclude = "password")
-public class User extends BaseEntity {
+public class UserEntity extends BaseEntity {
 
 	@Column(length = 50)
-	private String fisrtName;
+	private String firstName;
 
 	@Column(length = 50)
 	private String lastName;
@@ -35,12 +39,12 @@ public class User extends BaseEntity {
 	@Column(length = 10,unique = true)
 	private String mobile;
 
-	@Column(length = 12)
+	@Column(length = 300)
 	private String password;
 
 	@Enumerated(EnumType.STRING)
 	@Column(length = 20)
-	private Role userRole;
+	private UserRole userRole;
 
 	@CreationTimestamp
 	private LocalDateTime registerDate;
