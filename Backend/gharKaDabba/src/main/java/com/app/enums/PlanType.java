@@ -6,7 +6,7 @@ import lombok.Getter;
 @Getter
 public enum PlanType {
 	
-	WEEKLY(7),MONTLY(30);
+	WEEKLY(7),MONTLY(28);
 	
 	private int duration;
 
