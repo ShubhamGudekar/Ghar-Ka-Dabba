@@ -1,20 +1,8 @@
 package com.app.entities;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.MapsId;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,23 +12,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class Customer extends BaseEntity {
-	
-	@OneToOne
-	@JoinColumn(name="user_id")
-	@MapsId 
-	private UserEntity userEntity;
+public class Customer extends UserEntity {
 
-	@ElementCollection
-	@CollectionTable(name="delivery_addresses")
-	@Column(name="cust_id")
-	private List<Address> deliveryAddress = new ArrayList<Address>();
+	public Customer(String firstName, String lastName, String email, String mobile) {
+		super(firstName, lastName, email, mobile);
+
+	}
+
+
 	
 	
-	@OneToOne(mappedBy = "customer")
-	private Order order;
-	
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<CustomerPlanSubcription> plans = new ArrayList<CustomerPlanSubcription>();
 }
