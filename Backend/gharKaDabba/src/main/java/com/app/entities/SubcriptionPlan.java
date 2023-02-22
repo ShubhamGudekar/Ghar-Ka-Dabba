@@ -1,7 +1,7 @@
 package com.app.entities;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -9,8 +9,10 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -22,7 +24,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="subcription_plan")
+@Table(name="subcription_plans")
 @Getter
 @Setter
 @NoArgsConstructor
@@ -41,14 +43,15 @@ public class SubcriptionPlan extends BaseEntity{
 	@ElementCollection
 	@JoinTable(name="plan_tiffins")
 	@Column(name="subcription_id")
-	private List<Tiffin> tiffins = new ArrayList<Tiffin>();
+	private Set<Tiffin> tiffins = new HashSet<Tiffin>();
 	
-	@ManyToMany(mappedBy = "plans")
-	private List<Vendor> vendors = new ArrayList<Vendor>();
+	@ManyToOne
+	@JoinColumn(name = "vendor_id")
+	private Vendor vendor ;
 	
 	@OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<CustomerPlanSubcription> plans = new ArrayList<CustomerPlanSubcription>();
+	private Set<CustomerPlanSubcription> plans = new HashSet<CustomerPlanSubcription>();
 	
 	@ManyToMany(mappedBy = "plans")
-	private List<Order> orders = new ArrayList<Order>();
+	private Set<Order> orders = new HashSet<Order>();
 }

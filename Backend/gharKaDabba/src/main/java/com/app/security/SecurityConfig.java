@@ -26,37 +26,32 @@ public class SecurityConfig {
 
 	@Autowired
 	private JWTRequestFilter filter;
-	
-	@Bean
-	public PasswordEncoder getPasswordEncoder() {
-		return new BCryptPasswordEncoder();
-	}
 
-	//method to assign permissions for every user
+	// method to assign permissions for every user
 	@Bean
 	public SecurityFilterChain authorizeRequests(HttpSecurity httpSecurity) throws Exception {
 
-		httpSecurity.cors().and().csrf().disable()
-					.exceptionHandling()
-					.authenticationEntryPoint((request, response, ex) -> {
+		httpSecurity.cors().and().csrf().disable().exceptionHandling()
+				.authenticationEntryPoint((request, response, ex) -> {
 					response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
 				})
 
-				.and()
-				.authorizeRequests().antMatchers("/admins").hasRole("ADMIN")
-				.antMatchers("/customers").hasRole("CUSTOMER")
-				.antMatchers("/vendors").hasRole("VENDOR")
+				.and().authorizeRequests().antMatchers("/admins").hasRole("ADMIN").antMatchers("/customers")
+				.hasRole("CUSTOMER").antMatchers("/vendors").hasRole("VENDOR")
 				.antMatchers("/home", "/auth/**", "/swagger*/**", "/v*/api-docs/**").permitAll()
 				.antMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated()
 
-				.and()
-				.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
 
-				.and()
-				.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
+				.and().addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
 
 		return httpSecurity.build();
 
+	}
+
+	@Bean
+	public PasswordEncoder getPasswordEncoder() {
+		return new BCryptPasswordEncoder();
 	}
 
 	// configure auth mgr bean : to be used in Authentication REST controller

@@ -1,8 +1,8 @@
 package com.app.entities;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -51,6 +51,6 @@ public class Order extends BaseEntity{
 	private Customer customer;
 	
 	@ManyToMany
-	@JoinTable(name = "order_subcription_plan", joinColumns = @JoinColumn(name = "subcription_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
-	private List<SubcriptionPlan> plans = new ArrayList<>();
+	@JoinTable(name = "plan_orders", joinColumns = @JoinColumn(name = "subcription_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
+	private Set<SubcriptionPlan> plans = new HashSet<>();
 }

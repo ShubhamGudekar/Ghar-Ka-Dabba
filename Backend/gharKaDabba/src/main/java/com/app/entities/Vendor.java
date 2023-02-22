@@ -1,6 +1,12 @@
 package com.app.entities;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import lombok.Getter;
@@ -20,5 +26,12 @@ public class Vendor extends UserEntity {
 		super(firstName, lastName, email, mobile);
 
 	}
+	
+	@Embedded
+	private Address centreAddress;
+	
+	@OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<SubcriptionPlan> plans = new HashSet<SubcriptionPlan>();
+
 
 }
