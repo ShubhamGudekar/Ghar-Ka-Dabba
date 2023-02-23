@@ -16,7 +16,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @Table(name = "customer_plans")
-public class CustomerPlanSubcription extends BaseEntity {
+public class CustomerPlanSubscription extends BaseEntity {
 	
 	@CreationTimestamp
 	private LocalDate startDate;
@@ -25,7 +25,7 @@ public class CustomerPlanSubcription extends BaseEntity {
 	
 	@ManyToOne
 	@JoinColumn(name = "subcription_id")
-	private SubcriptionPlan plan;
+	private SubscriptionPlan plan;
 
 	@ManyToOne
 	@JoinColumn(name = "customer_id")

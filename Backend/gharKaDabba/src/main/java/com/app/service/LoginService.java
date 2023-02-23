@@ -1,5 +1,18 @@
 package com.app.service;
 
-public interface LoginService {
+import com.app.dto.ChangePasswordDto;
+import com.app.entities.Login;
 
+public interface LoginService {
+	
+	Login findByEmail(String email);
+
+	void removeLogin(Login loginDetails);
+
+	void addLogin(Login login);
+
+	String changePassword(ChangePasswordDto changePasswordDto);
+
+
+	
 }

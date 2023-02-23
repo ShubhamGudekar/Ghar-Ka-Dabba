@@ -27,7 +27,7 @@ public class Customer extends UserEntity {
 		super(firstName, lastName, email, mobile);
 
 	}
-	
+
 	@ElementCollection
 	@CollectionTable(name = "delivery_addresses")
 	@Column(name = "cust_id")
@@ -37,11 +37,9 @@ public class Customer extends UserEntity {
 	private Order order;
 
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<CustomerPlanSubcription> plans = new HashSet<>();
+	private Set<CustomerPlanSubscription> plans = new HashSet<>();
 
+	@OneToOne(mappedBy = "cartOwner", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Cart cart;
 
-
-
-	
-	
 }

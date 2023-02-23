@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.AuthRequest;
 import com.app.dto.AuthResp;
+import com.app.dto.ChangePasswordDto;
 import com.app.dto.UserDTO;
 import com.app.dto.UserRegResponse;
 import com.app.entities.Customer;
@@ -24,9 +25,9 @@ import com.app.entities.UserEntity;
 import com.app.entities.Vendor;
 import com.app.enums.UserRole;
 import com.app.repository.CustomerRepository;
-import com.app.repository.LoginRepository;
 import com.app.repository.VendorRepository;
 import com.app.security.jwt_utils.JwtUtils;
+import com.app.service.LoginService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -44,7 +45,7 @@ public class AuthController {
 	private AuthenticationManager manager;
 
 	@Autowired
-	private LoginRepository loginRepo;
+	private LoginService loginService;
 
 	@Autowired
 	private CustomerRepository customerRepo;
@@ -108,10 +109,17 @@ public class AuthController {
 		}
 
 		// adding entry to login table
-		loginRepo.save(login);
+		loginService.addLogin(login);
 
 		return ResponseEntity.status(HttpStatus.CREATED)
 				.body(new UserRegResponse("Registrstion Successfully Id Generated : " + entity.getId()));
 
 	}
+	
+	//method to update password
+	@PostMapping("/updatepassword")
+	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto){
+		return ResponseEntity.status(HttpStatus.CREATED).body(loginService.changePassword(changePasswordDto));
+	}
+	
 }

@@ -28,10 +28,10 @@ public class Vendor extends UserEntity {
 	}
 	
 	@Embedded
-	private Address centreAddress;
+	private Address address;
 	
 	@OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<SubcriptionPlan> plans = new HashSet<SubcriptionPlan>();
+	private Set<SubscriptionPlan> plans = new HashSet<SubscriptionPlan>();
 
 
 }

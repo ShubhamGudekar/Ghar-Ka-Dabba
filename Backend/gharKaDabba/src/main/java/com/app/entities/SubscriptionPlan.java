@@ -24,12 +24,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Entity
-@Table(name="subcription_plans")
+@Table(name="subscription_plans")
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class SubcriptionPlan extends BaseEntity{
+public class SubscriptionPlan extends BaseEntity{
 	
 	private String name;
 	
@@ -50,8 +50,12 @@ public class SubcriptionPlan extends BaseEntity{
 	private Vendor vendor ;
 	
 	@OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Set<CustomerPlanSubcription> plans = new HashSet<CustomerPlanSubcription>();
+	private Set<CustomerPlanSubscription> plans = new HashSet<CustomerPlanSubscription>();
 	
 	@ManyToMany(mappedBy = "plans")
 	private Set<Order> orders = new HashSet<Order>();
+	
+	@ManyToOne
+	@JoinColumn(name = "cart_id", nullable = false)
+	private Cart cart;
 }

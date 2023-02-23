@@ -15,7 +15,6 @@ public class GharKaDabbaApplication {
 
 	@Bean // equvalent to <bean id ..../> in xml file
 	public ModelMapper configureMapper() {
-		System.out.println("in config mapper....");
 		ModelMapper modelMapper = new ModelMapper();
 		modelMapper.getConfiguration()
 		.setMatchingStrategy(MatchingStrategies.STRICT);
