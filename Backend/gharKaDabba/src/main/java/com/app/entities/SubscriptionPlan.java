@@ -28,7 +28,6 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
 public class SubscriptionPlan extends BaseEntity{
 	
 	private String name;
@@ -37,6 +36,14 @@ public class SubscriptionPlan extends BaseEntity{
 	
 	private double price;
 	
+	public SubscriptionPlan(String name, String description, double price, PlanType planType) {
+		super();
+		this.name = name;
+		this.description = description;
+		this.price = price;
+		this.planType = planType;
+	}
+
 	@Enumerated(EnumType.STRING)
 	private PlanType planType;
 	
@@ -47,7 +54,7 @@ public class SubscriptionPlan extends BaseEntity{
 	
 	@ManyToOne
 	@JoinColumn(name = "vendor_id")
-	private Vendor vendor ;
+	private Vendor vendor;
 	
 	@OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<CustomerPlanSubscription> plans = new HashSet<CustomerPlanSubscription>();

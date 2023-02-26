@@ -34,6 +34,7 @@ public class CustomerController {
 		return new ResponseEntity<>(custService.removeCustomer(id), HttpStatus.OK);
 	}
 
+	//to update the customer
 	// REST end point to update user details
 	// url : http://localhost:8080/customers
 	@PutMapping
@@ -41,6 +42,7 @@ public class CustomerController {
 		return new ResponseEntity<>(custService.editCustomerDetails(userDetailsDto), HttpStatus.OK);
 	}
 
+	//to add a customer profile image
 	// REST end point to upload image
 	// url : http://localhost:8080/customers/id/image
 	@PostMapping(value = "/{id}/profileImage", consumes = "multipart/form-data")
@@ -61,11 +63,13 @@ public class CustomerController {
 		return new ResponseEntity<>(custService.getImage(id), HttpStatus.OK);
 	}
 	
+	//to get list of all customers
 	@GetMapping("/allcustomers")
 	public ResponseEntity<?> getAllCustomers() {
 		return new ResponseEntity<>(custService.getAllCustomers(), HttpStatus.OK);
 	}
 	
+	//to retrive a customer using an id 
 	@GetMapping("/{id}")
 	public ResponseEntity<?> getCustomerById(@PathVariable long id) {
 		return new ResponseEntity<>(custService.getCustomerById(id), HttpStatus.OK);

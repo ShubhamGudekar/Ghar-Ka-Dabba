@@ -2,6 +2,7 @@ package com.app.service;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -69,6 +70,7 @@ public class CustomerServiceImpl implements CustomerService {
 		return "Customer Details Updated Successfully";
 	}
 
+	//customer want to upload his/her profile pic
 	@Override
 	public String uploadImage(Long id, MultipartFile imageFile) throws IOException {
 		Customer customer = customerRepo.findById(id).orElseThrow();
@@ -76,10 +78,23 @@ public class CustomerServiceImpl implements CustomerService {
 		return "Image Uploaded Successfully";
 	}
 
+	//get the image path from server side
 	@Override
 	public byte[] getImage(Long id) throws IOException {
 		Customer customer = customerRepo.findById(id).orElseThrow();
 		return imageService.getImage(customer.getProfileImage());
 	}
 
+//	//adding a new customer
+//	@SuppressWarnings("deprecation")
+//	public String addNewCustomer(UserDetailsDto userDetailsDto) {
+//		Customer customer = customerRepo.findById(userDetailsDto.getId()).orElseThrow();
+//		Login templogin=loginService.findByEmail(userDetailsDto.getEmail());
+//		if(customer.getId().equals(userDetailsDto.getId()) || templogin.getEmail().equals(userDetailsDto.getEmail())) {
+//			return "customer with id = "+customer.getId()+" already exists!";
+//		}
+//		else {
+//			customerRepo.save(userDetailsDto);
+//		}
+//	}
 }
