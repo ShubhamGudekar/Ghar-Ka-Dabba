@@ -12,6 +12,7 @@ import lombok.Setter;
 public class UserRegResponse {
 	private String message;
 	private LocalDateTime timeStamp;
+	
 	public UserRegResponse(String message) {
 		super();
 		this.message = message;

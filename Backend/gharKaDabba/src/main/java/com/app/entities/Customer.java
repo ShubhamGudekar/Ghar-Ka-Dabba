@@ -39,7 +39,5 @@ public class Customer extends UserEntity {
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<CustomerPlanSubscription> plans = new HashSet<>();
 
-	@OneToOne(mappedBy = "cartOwner", cascade = CascadeType.ALL, orphanRemoval = true)
-	private Cart cart;
 
 }

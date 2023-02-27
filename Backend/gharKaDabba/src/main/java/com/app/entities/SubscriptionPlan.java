@@ -62,7 +62,4 @@ public class SubscriptionPlan extends BaseEntity{
 	@ManyToMany(mappedBy = "plans")
 	private Set<Order> orders = new HashSet<Order>();
 	
-	@ManyToOne
-	@JoinColumn(name = "cart_id", nullable = false)
-	private Cart cart;
 }

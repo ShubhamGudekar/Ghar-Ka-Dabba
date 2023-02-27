@@ -19,7 +19,6 @@ import com.app.entities.SubscriptionPlan;
 import com.app.enums.PlanType;
 import com.app.repository.CustomerPlanRepository;
 import com.app.repository.SubscriptionRepository;
-import com.app.repository.TiffinRepository;
 import com.app.repository.VendorRepository;
 @Service
 @Transactional
@@ -39,10 +38,7 @@ public class SubscriptionPlanServiceImpl implements SubscriptionPlanService {
 	
 	@Autowired
 	private CustomerPlanRepository custplanrepo;
-	
-	@Autowired
-	private TiffinRepository tiffinrepo;
-	
+		
 //	private String name;
 //	
 //	private String description;
@@ -51,14 +47,16 @@ public class SubscriptionPlanServiceImpl implements SubscriptionPlanService {
 //	
 //	private PlanType planType;
 
+	//add new subscription plan
 	@Override
 	public SubscriptionPlanDto addNewSubscriptionPlan(SubscriptionPlanDto SubscriptionPlanDto) {
 		SubscriptionPlan newsubscrpplan=new SubscriptionPlan(SubscriptionPlanDto.getName(),SubscriptionPlanDto.getDescription(),SubscriptionPlanDto.getPrice(),SubscriptionPlanDto.getPlanType());
-		subscrprepo.save(newsubscrpplan);
+		SubscriptionPlan plan =subscrprepo.save(newsubscrpplan);
 		// TODO Auto-generated method stub
-		return mapper.map(newsubscrpplan,SubscriptionPlanDto.class);
+		return mapper.map(plan,SubscriptionPlanDto.class);
 	}
 
+	//get all subscription plans
 	@Override
 	public List<SubscriptionPlanDto> getAllSubscriptionPlans() {
 		// TODO Auto-generated method stub
@@ -66,6 +64,7 @@ public class SubscriptionPlanServiceImpl implements SubscriptionPlanService {
 				.collect(Collectors.toList());
 	}
 
+	//get individual subscription plan
 	@Override
 	public SubscriptionPlanDto getSubscriptionPlanById(long id) {
 		// TODO Auto-generated method stub
@@ -73,18 +72,20 @@ public class SubscriptionPlanServiceImpl implements SubscriptionPlanService {
 		return mapper.map(subscriptionplan, SubscriptionPlanDto.class);
 	}
 
+	//remove subscription plan
 	@Override
 	public String removeSubscriptionPlan(long id) {
-		// TODO Auto-generated method stub
-		SubscriptionPlan subscriptionplan=subscrprepo.findById(id).orElseThrow();
-		CustomerPlanSubscription customerplansubscription= custplanrepo.findById(id).orElseThrow();
-		Tiffin tiffin=tiffinrepo.findById(subscriptionplan.getName()).orElseThrow();
-		subscrprepo.delete(subscriptionplan);
-		custplanrepo.delete(customerplansubscription);
-		tiffinrepo.delete(tiffin);
-		return "subscription plan deleted successfully!";
+//		// TODO Auto-generated method stub
+//		SubscriptionPlan subscriptionplan=subscrprepo.findById(id).orElseThrow();
+//		CustomerPlanSubscription customerplansubscription= custplanrepo.findById(id).orElseThrow();
+//		Tiffin tiffin=tiffinrepo.findById(subscriptionplan.getName()).orElseThrow();
+//		subscrprepo.delete(subscriptionplan);
+//		custplanrepo.delete(customerplansubscription);
+//		tiffinrepo.delete(tiffin);
+		return null;
 	}
 
+	//edit an subscription plan
 	@Override
 	public String editSubscriptionDetails(SubscriptionPlanDto SubscriptionPlanDto) {
 		// TODO Auto-generated method stub

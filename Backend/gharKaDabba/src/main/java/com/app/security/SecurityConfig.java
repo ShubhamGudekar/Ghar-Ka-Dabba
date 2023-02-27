@@ -36,9 +36,12 @@ public class SecurityConfig {
 					response.sendError(HttpServletResponse.SC_UNAUTHORIZED, ex.getMessage());
 				})
 
-				.and().authorizeRequests().antMatchers("/admins").hasRole("ADMIN").antMatchers("/customers")
-				.hasRole("CUSTOMER").antMatchers("/vendors").hasRole("VENDOR")
-				.antMatchers("/home", "/auth/**", "/swagger*/**", "/v*/api-docs/**").permitAll()
+				.and()
+				.authorizeRequests()
+				.antMatchers("/admins").hasRole("ADMIN")
+				.antMatchers("/customers").hasRole("CUSTOMER")
+				.antMatchers("/vendors").hasRole("VENDOR")
+				.antMatchers("/home", "/auth/**", "/swagger*/**", "/v*/api-docs/**","/subscription/**","/customerplan/**").permitAll()
 				.antMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated()
 
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
