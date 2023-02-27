@@ -1,7 +1,5 @@
 package com.app.dto;
 
-import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,14 +9,16 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
-public class CustomerPlanDto {
+public class AddressDto {
 	
-	private Long id;
+	private String Line1;
 
-	private LocalDate startDate;
+	private String Line2;
+
+	private String city;
+
+	private int pincode;
+
+	private String state;
 	
-	private LocalDate endDate;
-
-
 }

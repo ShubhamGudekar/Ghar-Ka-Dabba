@@ -53,4 +53,11 @@ public class Order extends BaseEntity{
 	@ManyToMany
 	@JoinTable(name = "plan_orders", joinColumns = @JoinColumn(name = "subcription_id"), inverseJoinColumns = @JoinColumn(name = "order_id"))
 	private Set<SubscriptionPlan> plans = new HashSet<>();
+	
+	public Order(OrderStatus status, Customer customer, Set<SubscriptionPlan> plans) {
+		super();
+		this.status = status;
+		this.customer = customer;
+		this.plans = plans;
+	}
 }

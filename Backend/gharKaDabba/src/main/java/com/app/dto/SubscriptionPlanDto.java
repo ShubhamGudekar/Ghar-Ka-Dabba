@@ -2,9 +2,6 @@ package com.app.dto;
 
 import java.util.Set;
 
-import javax.persistence.EnumType;
-import javax.persistence.Enumerated;
-
 import com.app.entities.Tiffin;
 import com.app.enums.PlanType;
 

@@ -41,7 +41,7 @@ public class SecurityConfig {
 				.antMatchers("/admins").hasRole("ADMIN")
 				.antMatchers("/customers").hasRole("CUSTOMER")
 				.antMatchers("/vendors").hasRole("VENDOR")
-				.antMatchers("/home", "/auth/**", "/swagger*/**", "/v*/api-docs/**","/subscription/**","/customerplan/**").permitAll()
+				.antMatchers("/home", "/orders/**","/auth/**", "/swagger*/**", "/v*/api-docs/**","/subscription/**","/customerplan/**").permitAll()
 				.antMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated()
 
 				.and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)

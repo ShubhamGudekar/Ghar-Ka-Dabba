@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.dto.AddressDto;
 import com.app.dto.UserDetailsDto;
 import com.app.service.CustomerService;
 
@@ -74,5 +75,9 @@ public class CustomerController {
 	public ResponseEntity<?> getCustomerById(@PathVariable long id) {
 		return new ResponseEntity<>(custService.getCustomerById(id), HttpStatus.OK);
 	}
-
+	
+	@PostMapping("/{id}/addAddress")
+	public ResponseEntity<?> addDeliveryAddress(@RequestBody AddressDto address,@PathVariable Long id){
+		return new ResponseEntity<>(custService.addDeliveryAddress(address,id),HttpStatus.OK);
+	}
 }

@@ -2,7 +2,6 @@ package com.app.service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
@@ -12,7 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.dto.AddressDto;
 import com.app.dto.UserDetailsDto;
+import com.app.entities.Address;
 import com.app.entities.Customer;
 import com.app.entities.Login;
 import com.app.repository.CustomerRepository;
@@ -85,16 +86,10 @@ public class CustomerServiceImpl implements CustomerService {
 		return imageService.getImage(customer.getProfileImage());
 	}
 
-//	//adding a new customer
-//	@SuppressWarnings("deprecation")
-//	public String addNewCustomer(UserDetailsDto userDetailsDto) {
-//		Customer customer = customerRepo.findById(userDetailsDto.getId()).orElseThrow();
-//		Login templogin=loginService.findByEmail(userDetailsDto.getEmail());
-//		if(customer.getId().equals(userDetailsDto.getId()) || templogin.getEmail().equals(userDetailsDto.getEmail())) {
-//			return "customer with id = "+customer.getId()+" already exists!";
-//		}
-//		else {
-//			customerRepo.save(userDetailsDto);
-//		}
-//	}
+	@Override
+	public String addDeliveryAddress(AddressDto address,Long id) {
+		Customer customer = customerRepo.findById(id).orElseThrow();
+		customer.getDeliveryAddress().add(mapper.map(address, Address.class));
+		return "Address Added Successfully";
+	}
 }

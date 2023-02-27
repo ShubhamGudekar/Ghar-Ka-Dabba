@@ -1,7 +1,5 @@
 package com.app.dto;
 
-import java.time.LocalDate;
-
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -11,14 +9,12 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+public class OrderDto {
 
-public class CustomerPlanDto {
 	
-	private Long id;
-
-	private LocalDate startDate;
+	private long customerId;
 	
-	private LocalDate endDate;
+	private long subscriptionId;
 
-
+	
 }

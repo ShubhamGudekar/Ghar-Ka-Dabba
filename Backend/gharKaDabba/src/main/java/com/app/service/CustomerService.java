@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.dto.AddressDto;
 import com.app.dto.UserDetailsDto;
 
 public interface CustomerService {
@@ -21,4 +22,5 @@ public interface CustomerService {
 
 	byte[] getImage(Long id) throws IOException;
 
+	String addDeliveryAddress(AddressDto address,Long id);
 }

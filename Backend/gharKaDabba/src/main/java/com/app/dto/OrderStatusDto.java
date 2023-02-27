@@ -1,6 +1,6 @@
 package com.app.dto;
 
-import java.time.LocalDate;
+import com.app.enums.OrderStatus;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,14 +11,10 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+public class OrderStatusDto {
 
-public class CustomerPlanDto {
-	
-	private Long id;
+	long ordereId;
 
-	private LocalDate startDate;
-	
-	private LocalDate endDate;
-
+	OrderStatus status;
 
 }
