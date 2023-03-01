@@ -1,7 +1,6 @@
 package com.app.entities;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -10,6 +9,8 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -38,13 +39,15 @@ public class CustomerPlanSubscription extends BaseEntity {
 		this.startDate = LocalDate.parse(startDate);
 		this.endDate = LocalDate.parse(endDate);
 	}
-
+	
+	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name = "subcription_id")
-	private SubscriptionPlan plan;
+	@JoinColumn(name = "course_id")
+	private Customer customer;
 
+	@JsonBackReference
 	@ManyToOne
-	@JoinColumn(name = "customer_id")
-	private Customer customer ;
+	@JoinColumn(name = "student_id")
+	private SubscriptionPlan subscriptionPlan;
 
 }

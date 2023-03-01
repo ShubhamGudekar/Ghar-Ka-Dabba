@@ -9,6 +9,8 @@ import javax.persistence.Entity;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +23,8 @@ import lombok.Setter;
 public class Vendor extends UserEntity {
 
 	private boolean isVerified;
+	
+	private boolean isBlocked;
 
 	public Vendor(String firstName, String lastName, String email, String mobile) {
 		super(firstName, lastName, email, mobile);
@@ -30,6 +34,7 @@ public class Vendor extends UserEntity {
 	@Embedded
 	private Address address;
 	
+	@JsonManagedReference
 	@OneToMany(mappedBy = "vendor", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<SubscriptionPlan> plans = new HashSet<SubscriptionPlan>();
 

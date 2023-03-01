@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,11 +17,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.app.dto.UserDetailsDto;
+import com.app.dto.AddressDto;
+import com.app.dto.EditUserDetailsDto;
 import com.app.service.VendorService;
 
 @RestController
-@CrossOrigin
 @RequestMapping("/vendors")
 public class VendorController {
 
@@ -39,7 +38,7 @@ public class VendorController {
 	// REST end point to update user details
 	// url : http://localhost:8080/vendors
 	@PutMapping
-	public ResponseEntity<?> updateUser(@RequestBody UserDetailsDto userDetailsDto) {
+	public ResponseEntity<?> updateUser(@RequestBody EditUserDetailsDto userDetailsDto) {
 		return new ResponseEntity<>(vendorService.editVendorDetails(userDetailsDto), HttpStatus.OK);
 	}
 
@@ -63,7 +62,7 @@ public class VendorController {
 		return new ResponseEntity<>(vendorService.getImage(id), HttpStatus.OK);
 	}
 
-	@GetMapping("/vendor/{id}/approve")
+	@GetMapping("/{id}/approve")
 	public ResponseEntity<?> approveVendor(@PathVariable Long id) {
 		return new ResponseEntity<>(vendorService.approveVendor(id), HttpStatus.OK);
 
@@ -74,8 +73,43 @@ public class VendorController {
 		return new ResponseEntity<>(vendorService.getAllVendors(), HttpStatus.OK);
 	}
 
-	@GetMapping("/vendor/{id}")
+	@GetMapping("/{id}")
 	public ResponseEntity<?> getVendorById(@PathVariable long id) {
 		return new ResponseEntity<>(vendorService.getVendorById(id), HttpStatus.OK);
+	}
+
+	@PostMapping("/{id}/addaddress")
+	public ResponseEntity<?> addAddress(@RequestBody AddressDto address, @PathVariable Long id) {
+		return new ResponseEntity<>(vendorService.addAddress(address, id), HttpStatus.OK);
+	}
+
+	@GetMapping("/{id}/addresses")
+	public ResponseEntity<?> getVendorAddress(@PathVariable Long id) {
+		return new ResponseEntity<>(vendorService.getVendorAddress(id), HttpStatus.OK);
+	}
+
+	@PutMapping("/{id}/editaddress")
+	public ResponseEntity<?> editAddress(@RequestBody AddressDto addressDto, @PathVariable Long id) {
+		return new ResponseEntity<>(vendorService.updateAddress(addressDto, id), HttpStatus.OK);
+	}
+
+	@GetMapping("/{id}/block")
+	public ResponseEntity<?> blockVendor(@PathVariable Long id) {
+		return new ResponseEntity<>(vendorService.blockVendor(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/unblock")
+	public ResponseEntity<?> unblockVendor(@PathVariable Long id) {
+		return new ResponseEntity<>(vendorService.unblockVendor(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllBlockedVendors")
+	public ResponseEntity<?> getAllBlockedVendors() {
+		return new ResponseEntity<>(vendorService.getAllBlockedVendors(), HttpStatus.OK);
+	}
+	
+	@GetMapping("/getAllVerifiedVendors")
+	public ResponseEntity<?> getAllVerifiedVendors() {
+		return new ResponseEntity<>(vendorService.getAllVerifiedVendors(), HttpStatus.OK);
 	}
 }

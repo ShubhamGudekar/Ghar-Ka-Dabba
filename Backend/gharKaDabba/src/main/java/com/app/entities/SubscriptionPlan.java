@@ -9,6 +9,7 @@ import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
@@ -17,8 +18,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.app.enums.PlanType;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -36,6 +38,11 @@ public class SubscriptionPlan extends BaseEntity{
 	
 	private double price;
 	
+	private boolean isAvaliable;
+
+	@Enumerated(EnumType.STRING)
+	private PlanType planType;
+	
 	public SubscriptionPlan(String name, String description, double price, PlanType planType) {
 		super();
 		this.name = name;
@@ -43,22 +50,22 @@ public class SubscriptionPlan extends BaseEntity{
 		this.price = price;
 		this.planType = planType;
 	}
-
-	@Enumerated(EnumType.STRING)
-	private PlanType planType;
 	
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name="plan_tiffins")
 	@Column(name="subcription_id")
 	private Set<Tiffin> tiffins = new HashSet<Tiffin>();
 	
+	@JsonBackReference
 	@ManyToOne
 	@JoinColumn(name = "vendor_id")
 	private Vendor vendor;
 	
-	@OneToMany(mappedBy = "plan", cascade = CascadeType.ALL, orphanRemoval = true)
+	@JsonManagedReference
+	@OneToMany(mappedBy = "subscriptionPlan", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<CustomerPlanSubscription> plans = new HashSet<CustomerPlanSubscription>();
 	
+	@JsonBackReference
 	@ManyToMany(mappedBy = "plans")
 	private Set<Order> orders = new HashSet<Order>();
 	

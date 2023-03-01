@@ -8,9 +8,11 @@ import javax.persistence.CollectionTable;
 import javax.persistence.Column;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,16 +30,17 @@ public class Customer extends UserEntity {
 
 	}
 
-	@ElementCollection
+	@ElementCollection(fetch = FetchType.EAGER)
 	@CollectionTable(name = "delivery_addresses")
 	@Column(name = "cust_id")
 	private Set<Address> deliveryAddress = new HashSet<Address>();
 
-	@OneToOne(mappedBy = "customer")
-	private Order order;
+	@JsonManagedReference
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	private Set<Order> orders;
 
+	@JsonManagedReference
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<CustomerPlanSubscription> plans = new HashSet<>();
-
 
 }

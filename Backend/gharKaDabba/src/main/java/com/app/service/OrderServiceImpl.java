@@ -20,7 +20,7 @@ import com.app.entities.SubscriptionPlan;
 import com.app.enums.OrderStatus;
 import com.app.repository.CustomerRepository;
 import com.app.repository.OrderRepository;
-import com.app.repository.SubscriptionRepository;
+import com.app.repository.SubscriptionPlanRepository;
 
 @Transactional
 @Service
@@ -33,7 +33,7 @@ public class OrderServiceImpl implements OrderService {
 	private CustomerRepository custRepo;
 
 	@Autowired
-	private SubscriptionRepository subscriptionRepo;
+	private SubscriptionPlanRepository subscriptionRepo;
 
 	@Autowired
 	private ModelMapper mapper;
@@ -47,6 +47,7 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public OrderResponseDto getOrderDetailsById(Long id) {
 		Order order = orderRepo.findById(id).orElseThrow();
+		System.out.println(order);
 		OrderResponseDto responseDto =mapper.map(order, OrderResponseDto.class);
 //		Customer customer = orderRepo.findB
 //		responseDto.setCustomerId();
@@ -56,7 +57,8 @@ public class OrderServiceImpl implements OrderService {
 	@Override
 	public List<Order> getAllOrdersByCustomerId(Long id) {
 		Customer customer = custRepo.findById(id).orElseThrow();
-		return orderRepo.findByCustomer(customer);
+		customer.getDeliveryAddress();
+		return customer.getOrders().stream().collect(Collectors.toList());
 	}
 
 	@Override

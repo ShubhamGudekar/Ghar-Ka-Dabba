@@ -1,6 +1,7 @@
 package com.app.controller;
 
 import java.io.IOException;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.AddressDto;
-import com.app.dto.UserDetailsDto;
+import com.app.dto.EditUserDetailsDto;
 import com.app.service.CustomerService;
 
 @RestController
@@ -39,8 +40,8 @@ public class CustomerController {
 	// REST end point to update user details
 	// url : http://localhost:8080/customers
 	@PutMapping
-	public ResponseEntity<?> updateUser(@RequestBody UserDetailsDto userDetailsDto) {
-		return new ResponseEntity<>(custService.editCustomerDetails(userDetailsDto), HttpStatus.OK);
+	public ResponseEntity<?> updateUser(@RequestBody EditUserDetailsDto custDetailsDto) {
+		return new ResponseEntity<>(custService.editCustomerDetails(custDetailsDto), HttpStatus.OK);
 	}
 
 	//to add a customer profile image
@@ -76,8 +77,18 @@ public class CustomerController {
 		return new ResponseEntity<>(custService.getCustomerById(id), HttpStatus.OK);
 	}
 	
-	@PostMapping("/{id}/addAddress")
+	@PostMapping("/{id}/addaddress")
 	public ResponseEntity<?> addDeliveryAddress(@RequestBody AddressDto address,@PathVariable Long id){
 		return new ResponseEntity<>(custService.addDeliveryAddress(address,id),HttpStatus.OK);
+	}
+	
+	@GetMapping("/{id}/addresses")
+	public ResponseEntity<?> getDeliveryAddress(@PathVariable Long id){
+		return new ResponseEntity<>(custService.getDeliveryAddress(id),HttpStatus.OK);
+	}
+	
+	@PutMapping("/{id}/editaddresses")
+	public ResponseEntity<?> editDeliveryAddress(@RequestBody Set<AddressDto> addressDto,@PathVariable Long id){
+		return new ResponseEntity<>(custService.updateDeliveryAddress(addressDto,id),HttpStatus.OK);
 	}
 }

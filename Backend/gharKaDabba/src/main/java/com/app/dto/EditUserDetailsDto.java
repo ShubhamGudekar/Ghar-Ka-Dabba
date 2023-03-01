@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserDetailsDto {
+public class EditUserDetailsDto {
 
 	private Long id;
 	
@@ -20,4 +20,5 @@ public class UserDetailsDto {
 	private String email;
 
 	private String mobile;
+	
 }

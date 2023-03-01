@@ -11,7 +11,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.app.dto.UserDetailsDto;
+import com.app.dto.AddressDto;
+import com.app.dto.EditUserDetailsDto;
+import com.app.dto.VendorDetailsDto;
+import com.app.entities.Address;
 import com.app.entities.Login;
 import com.app.entities.Vendor;
 import com.app.repository.VendorRepository;
@@ -40,28 +43,28 @@ public class VendorServiceImpl implements VendorService {
 	}
 
 	@Override
-	public List<UserDetailsDto> getAllVendors() {
-		return vendorRepo.findAll().stream().map(ven -> mapper.map(ven, UserDetailsDto.class))
+	public List<VendorDetailsDto> getAllVendors() {
+		return vendorRepo.findAll().stream().map(ven -> mapper.map(ven, VendorDetailsDto.class))
 				.collect(Collectors.toList());
 	}
 
 	@Override
-	public UserDetailsDto getVendorById(long id) {
+	public VendorDetailsDto getVendorById(long id) {
 		Vendor vendor = vendorRepo.findById(id).orElseThrow();
-		return mapper.map(vendor, UserDetailsDto.class);
+		return mapper.map(vendor, VendorDetailsDto.class);
 	}
 
 	@Override
 	public String removeVendor(long id) {
 		Vendor vendor = vendorRepo.findById(id).orElseThrow();
-		Login loginDetails=loginService.findByEmail(vendor.getEmail());
+		Login loginDetails = loginService.findByEmail(vendor.getEmail());
 		vendorRepo.delete(vendor);
 		loginService.removeLogin(loginDetails);
 		return "Vendor Deleted Successfully";
 	}
 
 	@Override
-	public String editVendorDetails(UserDetailsDto userDetailsDto) {
+	public String editVendorDetails(EditUserDetailsDto userDetailsDto) {
 		Vendor vendor = vendorRepo.findById(userDetailsDto.getId()).orElseThrow();
 		vendor.setFirstName(userDetailsDto.getFirstName());
 		vendor.setLastName(userDetailsDto.getLastName());
@@ -87,6 +90,53 @@ public class VendorServiceImpl implements VendorService {
 	public byte[] getImage(Long id) throws IOException {
 		Vendor vendor = vendorRepo.findById(id).orElseThrow();
 		return imageService.getImage(vendor.getProfileImage());
+	}
+
+	@Override
+	public String addAddress(AddressDto addressDto, Long id) {
+		Vendor vendor = vendorRepo.findById(id).orElseThrow();
+		vendor.setAddress(mapper.map(addressDto, Address.class));
+		return "Address Added Successfully";
+	}
+
+	@Override
+	public AddressDto getVendorAddress(Long id) {
+		Vendor vendor = vendorRepo.findById(id).orElseThrow();
+		return mapper.map(vendor.getAddress(), AddressDto.class);
+	}
+
+	@Override
+	public String updateAddress(AddressDto addressDto, Long id) {
+		Vendor vendor = vendorRepo.findById(id).orElseThrow();
+		vendor.setAddress(mapper.map(addressDto, Address.class));
+		return "Address Updated Successfully";
+	}
+
+	@Override
+	public String blockVendor(Long id) {
+		Vendor vendor = vendorRepo.findById(id).orElseThrow();
+		vendor.setBlocked(true);
+		return "Vendor Blocked Successfully";
+	}
+
+	@Override
+	public String unblockVendor(Long id) {
+		Vendor vendor = vendorRepo.findById(id).orElseThrow();
+		vendor.setBlocked(false);
+		return "Vendor Unblocked Successfully";
+	}
+
+	@Override
+	public List<VendorDetailsDto> getAllBlockedVendors() {
+		return vendorRepo.getAllBlockedVendors().stream().map(v -> mapper.map(v, VendorDetailsDto.class))
+				.collect(Collectors.toList());
+
+	}
+
+	@Override
+	public List<VendorDetailsDto> getAllVerifiedVendors() {
+		return vendorRepo.getAllVerifiedVendors().stream().map(v -> mapper.map(v, VendorDetailsDto.class))
+				.collect(Collectors.toList());
 	}
 
 }

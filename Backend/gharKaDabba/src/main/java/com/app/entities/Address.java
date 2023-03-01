@@ -24,7 +24,7 @@ public class Address {
 
 	private String city;
 
-	private int pincode;
+	private Integer pincode;
 
 	private String state;
 

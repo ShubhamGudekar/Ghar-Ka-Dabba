@@ -15,7 +15,7 @@ import com.app.dto.SubscriptionPlanDto;
 import com.app.entities.CustomerPlanSubscription;
 import com.app.entities.SubscriptionPlan;
 import com.app.repository.CustomerPlanRepository;
-import com.app.repository.SubscriptionRepository;
+import com.app.repository.SubscriptionPlanRepository;
 
 @Service
 @Transactional
