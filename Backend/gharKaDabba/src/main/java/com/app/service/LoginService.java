@@ -1,6 +1,7 @@
 package com.app.service;
 
 import com.app.dto.ChangePasswordDto;
+import com.app.dto.UserDTO;
 import com.app.entities.Login;
 
 public interface LoginService {
@@ -9,10 +10,13 @@ public interface LoginService {
 
 	void removeLogin(Login loginDetails);
 
-	void addLogin(Login login);
+	String addLogin(UserDTO user);
 
 	String changePassword(ChangePasswordDto changePasswordDto);
-
+	
+	public String sendOTP(String email);
+	
+	public boolean validateOTP(String email,int otp);
 
 	
 }

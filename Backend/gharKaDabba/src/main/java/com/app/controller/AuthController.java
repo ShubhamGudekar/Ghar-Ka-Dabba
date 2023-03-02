@@ -8,24 +8,16 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.AuthRequest;
+import com.app.dto.AuthRequestOTP;
 import com.app.dto.AuthResp;
 import com.app.dto.ChangePasswordDto;
 import com.app.dto.UserDTO;
-import com.app.dto.UserRegResponse;
-import com.app.entities.Customer;
-import com.app.entities.Login;
-import com.app.entities.UserEntity;
-import com.app.entities.Vendor;
-import com.app.enums.UserRole;
-import com.app.repository.CustomerRepository;
-import com.app.repository.VendorRepository;
 import com.app.security.jwt_utils.JwtUtils;
 import com.app.service.LoginService;
 
@@ -33,11 +25,10 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/auth")
-@Slf4j 
+@Slf4j
 public class AuthController {
 
-	
-	//Injecting Dependencies
+	// Injecting Dependencies
 	@Autowired
 	private JwtUtils utils;
 
@@ -46,15 +37,6 @@ public class AuthController {
 
 	@Autowired
 	private LoginService loginService;
-
-	@Autowired
-	private CustomerRepository customerRepo;
-
-	@Autowired
-	private VendorRepository vendorRepo;
-
-	@Autowired
-	private PasswordEncoder encoder;
 
 	// add a method to authenticate user . In case of success --send back token ,
 	// in case of failure send back err message
@@ -77,49 +59,33 @@ public class AuthController {
 
 	}
 
-	
-	
 	// add request handling method for user registration
 	@PostMapping("/signup")
 	public ResponseEntity<?> userRegistration(@RequestBody @Valid UserDTO user) {
-
-		// Extracting Role from request dto object
-		UserRole role = user.getUserRole();
-
-		// Creating an login object will be saved in database in login table if user
-		// data is added
-		Login login = new Login(user.getEmail(), encoder.encode(user.getPassword()), role);
-
-		UserEntity entity = null;
-
-		// Creating user object as per the type of role
-		if (role == UserRole.ROLE_CUSTOMER) {
-			// customer role
-			Customer customer = new Customer(user.getFirstName(), user.getLastName(), user.getEmail(),
-					user.getMobile());
-
-			// saving in customers table
-			entity = customerRepo.save(customer);
-		}
-		// vendor role
-		else {
-			Vendor vendor = new Vendor(user.getFirstName(), user.getLastName(), user.getEmail(), user.getMobile());
-			// saving in vendors table
-			entity = vendorRepo.save(vendor);
-		}
-
-		// adding entry to login table
-		loginService.addLogin(login);
-
-		return ResponseEntity.status(HttpStatus.CREATED)
-				.body(new UserRegResponse("Registrstion Successfully Id Generated : " + entity.getId()));
+		return ResponseEntity.status(HttpStatus.CREATED).body(loginService.addLogin(user));
 
 	}
-	
-	//method to update password
+
+	// method to update password
 	@PostMapping("/updatepassword")
-	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto){
+	public ResponseEntity<?> changePassword(@RequestBody ChangePasswordDto changePasswordDto) {
 		return ResponseEntity.status(HttpStatus.CREATED).body(loginService.changePassword(changePasswordDto));
 	}
-	
+
+	// method to generateOTP
+	@PostMapping("/validateEmail")
+	public ResponseEntity<?> validateEmail(@RequestBody String email) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(loginService.sendOTP(email));
+	}
+
+	@PostMapping("/verifyOtp")
+	public ResponseEntity<?> verifyOtp(@RequestBody AuthRequestOTP requestOTP) {
+		String str;
+		if (loginService.validateOTP(requestOTP.getEmail(), requestOTP.getOTP())) {
+			str = "Email Validated Successfully";
+		} else
+			str = "Invalid OTP";
+		return ResponseEntity.status(HttpStatus.CREATED).body(str);
+	}
+
 }

@@ -91,4 +91,9 @@ public class CustomerController {
 	public ResponseEntity<?> editDeliveryAddress(@RequestBody Set<AddressDto> addressDto,@PathVariable Long id){
 		return new ResponseEntity<>(custService.updateDeliveryAddress(addressDto,id),HttpStatus.OK);
 	}
+	
+	@GetMapping("/{id}/getSubscriptionPlans")
+	public ResponseEntity<?> getSubscriptionPlans(@PathVariable Long id){
+		return new ResponseEntity<>(custService.getSubscriptionPlans(id),HttpStatus.OK);
+	}
 }

@@ -14,6 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.AddressDto;
 import com.app.dto.EditUserDetailsDto;
+import com.app.dto.SubscriptionPlanDto;
 import com.app.dto.CustDetailsDto;
 import com.app.entities.Address;
 import com.app.entities.Customer;
@@ -38,8 +39,8 @@ public class CustomerServiceImpl implements CustomerService {
 
 	@Override
 	public List<CustDetailsDto> getAllCustomers() {
-		List<CustDetailsDto> details=customerRepo.findAll().stream().map(cust -> mapper.map(cust, CustDetailsDto.class))
-				.collect(Collectors.toList());
+		List<CustDetailsDto> details = customerRepo.findAll().stream()
+				.map(cust -> mapper.map(cust, CustDetailsDto.class)).collect(Collectors.toList());
 		return details;
 	}
 
@@ -104,12 +105,19 @@ public class CustomerServiceImpl implements CustomerService {
 	}
 
 	@Override
-	public String updateDeliveryAddress(Set<AddressDto> addressDto,Long id) {
+	public String updateDeliveryAddress(Set<AddressDto> addressDto, Long id) {
 		Customer customer = customerRepo.findById(id).orElseThrow();
 		Set<Address> addresses = addressDto.stream().map(add -> mapper.map(add, Address.class))
 				.collect(Collectors.toSet());
 		customer.setDeliveryAddress(addresses);
 		return "Address Updated Successfully";
+	}
+
+	@Override
+	public List<SubscriptionPlanDto> getSubscriptionPlans(Long id) {
+		Customer customer = customerRepo.findById(id).orElseThrow();
+		return customer.getPlans().stream().map(plan -> mapper.map(plan, SubscriptionPlanDto.class))
+				.collect(Collectors.toList());
 	}
 
 }

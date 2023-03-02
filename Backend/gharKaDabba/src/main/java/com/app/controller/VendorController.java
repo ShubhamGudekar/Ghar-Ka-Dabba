@@ -30,10 +30,10 @@ public class VendorController {
 
 	// REST end point to delete user
 	// url : http://localhost:8080/vendors/id
-	@DeleteMapping("/{id}")
-	public ResponseEntity<?> removeUser(@PathVariable long id) {
-		return new ResponseEntity<>(vendorService.removeVendor(id), HttpStatus.OK);
-	}
+//	@DeleteMapping("/{id}")
+//	public ResponseEntity<?> removeUser(@PathVariable long id) {
+//		return new ResponseEntity<>(vendorService.removeVendor(id), HttpStatus.OK);
+//	}
 
 	// REST end point to update user details
 	// url : http://localhost:8080/vendors

@@ -1,5 +1,7 @@
 package com.app.dto;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -14,7 +16,7 @@ public class OrderDto {
 	
 	private long customerId;
 	
-	private long subscriptionId;
+	private List<Long> subscriptionId;
 
 	
 }

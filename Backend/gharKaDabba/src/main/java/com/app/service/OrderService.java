@@ -4,8 +4,6 @@ import java.util.List;
 
 import com.app.dto.OrderDto;
 import com.app.dto.OrderResponseDto;
-import com.app.dto.OrderStatusDto;
-import com.app.entities.Order;
 
 public interface OrderService {
 
@@ -13,10 +11,8 @@ public interface OrderService {
 
 	OrderResponseDto getOrderDetailsById(Long id);
 
-	List<Order> getAllOrdersByCustomerId(Long id);
+	List<OrderResponseDto> getAllOrdersByCustomerId(Long id);
 
 	String addNewOrder(OrderDto ordersDto);
-
-	String updateOrderStatus(OrderStatusDto ordersDto);
 	
 }

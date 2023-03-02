@@ -1,6 +1,5 @@
 package com.app.service;
 
-import java.time.LocalDate;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,11 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dto.CustomerPlanDto;
-import com.app.dto.SubscriptionPlanDto;
 import com.app.entities.CustomerPlanSubscription;
-import com.app.entities.SubscriptionPlan;
 import com.app.repository.CustomerPlanRepository;
-import com.app.repository.SubscriptionPlanRepository;
 
 @Service
 @Transactional
@@ -30,15 +26,6 @@ public class CustomerPlanServcImpl implements CustomerPlanService {
 	@Autowired	
 	private ModelMapper mapper;
 	
-	//add new customer plan
-	@Override
-	public CustomerPlanDto addNewCustomerPlan(CustomerPlanDto CustomerPlanDto) {
-		CustomerPlanSubscription customerplansubscription=new CustomerPlanSubscription(CustomerPlanDto.getStartDate().toString(),CustomerPlanDto.getEndDate().toString());
-		CustomerPlanSubscription newcustomerplansubscription=customerplanrepo.save(customerplansubscription);
-		// TODO Auto-generated method stub
-		return mapper.map(newcustomerplansubscription,CustomerPlanDto.class);
-	}
-
 	//get all customer plans
 	@Override
 	public List<CustomerPlanDto> getAllCustomerPlans() {

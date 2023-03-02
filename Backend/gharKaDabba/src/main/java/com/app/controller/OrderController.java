@@ -6,13 +6,11 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.app.dto.OrderDto;
-import com.app.dto.OrderStatusDto;
 import com.app.service.OrderService;
 
 @RestController
@@ -41,11 +39,6 @@ public class OrderController {
 	@PostMapping("/newOrder")
 	public ResponseEntity<?> addNewOrder(@RequestBody OrderDto ordersDto) {
 		return new ResponseEntity<>(orderService.addNewOrder(ordersDto), HttpStatus.OK);
-	}
-
-	@PutMapping("/updateOrderStatus")
-	public ResponseEntity<?> updateOrderStatus(@RequestBody OrderStatusDto ordersDto) {
-		return new ResponseEntity<>(orderService.updateOrderStatus(ordersDto), HttpStatus.OK);
 	}
 
 }

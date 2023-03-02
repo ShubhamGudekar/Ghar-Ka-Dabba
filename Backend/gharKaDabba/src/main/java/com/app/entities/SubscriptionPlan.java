@@ -12,7 +12,6 @@ import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -51,6 +50,7 @@ public class SubscriptionPlan extends BaseEntity{
 		this.planType = planType;
 	}
 	
+	
 	@ElementCollection(fetch = FetchType.EAGER)
 	@JoinTable(name="plan_tiffins")
 	@Column(name="subcription_id")
@@ -62,11 +62,7 @@ public class SubscriptionPlan extends BaseEntity{
 	private Vendor vendor;
 	
 	@JsonManagedReference
-	@OneToMany(mappedBy = "subscriptionPlan", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "subscriptionPlan", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private Set<CustomerPlanSubscription> plans = new HashSet<CustomerPlanSubscription>();
-	
-	@JsonBackReference
-	@ManyToMany(mappedBy = "plans")
-	private Set<Order> orders = new HashSet<Order>();
-	
+		
 }

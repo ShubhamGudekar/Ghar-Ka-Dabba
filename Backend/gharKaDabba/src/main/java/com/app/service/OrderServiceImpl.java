@@ -1,5 +1,7 @@
 package com.app.service;
 
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -7,17 +9,16 @@ import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.app.dto.OrderDto;
 import com.app.dto.OrderResponseDto;
-import com.app.dto.OrderStatusDto;
 import com.app.entities.Customer;
+import com.app.entities.CustomerPlanSubscription;
 import com.app.entities.Order;
 import com.app.entities.SubscriptionPlan;
-import com.app.enums.OrderStatus;
+import com.app.repository.CustomerPlanRepository;
 import com.app.repository.CustomerRepository;
 import com.app.repository.OrderRepository;
 import com.app.repository.SubscriptionPlanRepository;
@@ -36,47 +37,81 @@ public class OrderServiceImpl implements OrderService {
 	private SubscriptionPlanRepository subscriptionRepo;
 
 	@Autowired
-	private ModelMapper mapper;
+	private CustomerPlanRepository customerPlanRepo;
+
 
 	@Override
 	public List<OrderResponseDto> getAllOrderDetails() {
 		List<Order> orders = orderRepo.findAll();
-		return orders.stream().map(o -> mapper.map(o, OrderResponseDto.class)).collect(Collectors.toList());
+		List<OrderResponseDto> orderDetails = new ArrayList<OrderResponseDto>();
+
+		orders.forEach(order -> {
+			OrderResponseDto responseDto = new OrderResponseDto();
+			responseDto.setId(order.getId());
+			responseDto.setCustomerId(order.getCustomer().getId());
+			responseDto.setDateTime(order.getDateTime());
+			// responseDto.setPaymentAmount(order.getPayment().getAmount());
+			responseDto.setPlanIds(order.getPlans().stream().map(plan -> plan.getId()).collect(Collectors.toList()));
+			orderDetails.add(responseDto);
+		});
+
+		return orderDetails;
 	}
 
 	@Override
 	public OrderResponseDto getOrderDetailsById(Long id) {
-		Order order = orderRepo.findById(id).orElseThrow();
-		System.out.println(order);
-		OrderResponseDto responseDto =mapper.map(order, OrderResponseDto.class);
-//		Customer customer = orderRepo.findB
-//		responseDto.setCustomerId();
+		Order order = orderRepo.getOrderDetailsById(id);
+		OrderResponseDto responseDto = new OrderResponseDto();
+		responseDto.setId(order.getId());
+		responseDto.setCustomerId(order.getCustomer().getId());
+		responseDto.setDateTime(order.getDateTime());
+		// responseDto.setPaymentAmount(order.getPayment().getAmount());
+		responseDto.setPlanIds(order.getPlans().stream().map(plan -> plan.getId()).collect(Collectors.toList()));
 		return responseDto;
 	}
 
 	@Override
-	public List<Order> getAllOrdersByCustomerId(Long id) {
+	public List<OrderResponseDto> getAllOrdersByCustomerId(Long id) {
 		Customer customer = custRepo.findById(id).orElseThrow();
-		customer.getDeliveryAddress();
-		return customer.getOrders().stream().collect(Collectors.toList());
+		Set<Order> orders = customer.getOrders();
+		List<OrderResponseDto> orderDetails = new ArrayList<OrderResponseDto>();
+		orders.forEach(order -> {
+			OrderResponseDto responseDto = new OrderResponseDto();
+			responseDto.setId(order.getId());
+			responseDto.setCustomerId(order.getCustomer().getId());
+			responseDto.setDateTime(order.getDateTime());
+			// responseDto.setPaymentAmount(order.getPayment().getAmount());
+			responseDto.setPlanIds(order.getPlans().stream().map(plan -> plan.getId()).collect(Collectors.toList()));
+			orderDetails.add(responseDto);
+		});
+		return orderDetails;
 	}
 
 	@Override
 	public String addNewOrder(OrderDto ordersDto) {
-		Customer customer = custRepo.findById(ordersDto.getCustomerId()).orElseThrow();
-		SubscriptionPlan subscriptionPlan = subscriptionRepo.findById(ordersDto.getSubscriptionId()).orElseThrow();
-		Set<SubscriptionPlan> plans = new HashSet<SubscriptionPlan>();
-		plans.add(subscriptionPlan);
-		Order order = new Order(OrderStatus.PENDING, customer, plans);
-		order = orderRepo.save(order);
-		return "Order Placed Successfully with Order Id : " + order.getId();
-	}
 
-	@Override
-	public String updateOrderStatus(OrderStatusDto orderDto) {
-		Order order = orderRepo.findById(orderDto.getOrdereId()).orElseThrow();
-		order.setStatus(orderDto.getStatus());
-		return "Order Status Updated Successfully";
+		// Finding Customer and Subscription Plan
+		Customer customer = custRepo.findById(ordersDto.getCustomerId()).orElseThrow();
+		List<SubscriptionPlan> subscriptionPlans = subscriptionRepo.findAllById(ordersDto.getSubscriptionId());
+
+		List<CustomerPlanSubscription> planSubscriptions = new ArrayList<CustomerPlanSubscription>();
+		// Creating Object of CustomerSubscriptioPlan
+		subscriptionPlans.forEach(sp -> {
+			CustomerPlanSubscription customerPlanSubscription = new CustomerPlanSubscription(customer, sp);
+			LocalDate curDate = LocalDate.now();
+			customerPlanSubscription.setStartDate(curDate);
+			customerPlanSubscription.setEndDate(curDate.plusDays(sp.getPlanType().getDuration()));
+			planSubscriptions.add(customerPlanSubscription);
+		});
+
+		Order order = new Order();
+		order.setCustomer(customer);
+		order.setPlans(new HashSet<SubscriptionPlan>(subscriptionPlans));
+		order.setQuantity(subscriptionPlans.size());
+		// Saving in Database
+		order = orderRepo.save(order);
+		customerPlanRepo.saveAll(planSubscriptions);
+		return "Order Placed Successfully with Order Id : " + order.getId();
 	}
 
 }

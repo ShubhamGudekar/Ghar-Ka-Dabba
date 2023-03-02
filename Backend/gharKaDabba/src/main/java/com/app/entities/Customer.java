@@ -36,11 +36,11 @@ public class Customer extends UserEntity {
 	private Set<Address> deliveryAddress = new HashSet<Address>();
 
 	@JsonManagedReference
-	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
+	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)
 	private Set<Order> orders;
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<CustomerPlanSubscription> plans = new HashSet<>();
-
+	
 }
