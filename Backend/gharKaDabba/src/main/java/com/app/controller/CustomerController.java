@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,6 +24,7 @@ import com.app.dto.EditUserDetailsDto;
 import com.app.service.CustomerService;
 
 @RestController
+@CrossOrigin
 @RequestMapping("/customers")
 public class CustomerController {
 	
@@ -95,5 +97,11 @@ public class CustomerController {
 	@GetMapping("/{id}/getSubscriptionPlans")
 	public ResponseEntity<?> getSubscriptionPlans(@PathVariable Long id){
 		return new ResponseEntity<>(custService.getSubscriptionPlans(id),HttpStatus.OK);
+	}
+	
+	@PostMapping("/findByEmail")
+	public ResponseEntity<?> findByEmail(@RequestBody String email){
+		System.out.println(email);
+		return new ResponseEntity<>(custService.getByEmail(email),HttpStatus.OK);
 	}
 }

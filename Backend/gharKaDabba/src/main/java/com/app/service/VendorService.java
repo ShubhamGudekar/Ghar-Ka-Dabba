@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.AddressDto;
 import com.app.dto.EditUserDetailsDto;
+import com.app.dto.SubscriptionPlanDto;
 import com.app.dto.VendorDetailsDto;
 
 public interface VendorService {
@@ -38,5 +39,7 @@ public interface VendorService {
 	List<VendorDetailsDto> getAllBlockedVendors();
 
 	List<VendorDetailsDto> getAllVerifiedVendors();
+
+	List<SubscriptionPlanDto> getAllAvaliablePlansByVId(Long id);
 	
 }

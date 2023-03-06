@@ -37,6 +37,8 @@ public class SubscriptionPlan extends BaseEntity{
 	
 	private double price;
 	
+	private String image;
+	
 	private boolean isAvaliable;
 
 	@Enumerated(EnumType.STRING)
@@ -51,7 +53,7 @@ public class SubscriptionPlan extends BaseEntity{
 	}
 	
 	
-	@ElementCollection(fetch = FetchType.EAGER)
+	@ElementCollection
 	@JoinTable(name="plan_tiffins")
 	@Column(name="subcription_id")
 	private Set<Tiffin> tiffins = new HashSet<Tiffin>();

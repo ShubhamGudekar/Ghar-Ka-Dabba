@@ -13,6 +13,10 @@ import lombok.ToString;
 @AllArgsConstructor
 public class AuthResp {
 	
+	private  String role;
+	
+	private String email;
+	
 	private String message;
 	
 	private String jwt;

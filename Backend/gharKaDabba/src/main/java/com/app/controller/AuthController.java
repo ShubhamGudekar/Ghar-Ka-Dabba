@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,8 @@ import com.app.dto.AuthRequestOTP;
 import com.app.dto.AuthResp;
 import com.app.dto.ChangePasswordDto;
 import com.app.dto.UserDTO;
+import com.app.entities.Login;
+import com.app.enums.UserRole;
 import com.app.security.jwt_utils.JwtUtils;
 import com.app.service.LoginService;
 
@@ -25,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin
 @Slf4j
 public class AuthController {
 
@@ -45,6 +49,8 @@ public class AuthController {
 
 		// store incoming user details(not yet validated) into Authentication object
 		// Authentication i/f ---> implemented by UserNamePasswordAuthToken
+		
+		System.out.println(request);
 		UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(request.getEmail(),
 				request.getPassword());
 
@@ -52,11 +58,16 @@ public class AuthController {
 
 		// authenticate the credentials
 		Authentication authenticatedDetails = manager.authenticate(authToken);
-
 		log.info("auth token again " + authenticatedDetails);
 		// => auth succcess
-		return ResponseEntity.ok(new AuthResp("Auth successful!", utils.generateJwtToken(authenticatedDetails)));
-
+		Login login = loginService.findByEmail(request.getEmail());
+		if(login.getUserRole()==UserRole.ROLE_CUSTOMER) {
+			return ResponseEntity.ok(new AuthResp("ROLE_CUSTOMER",request.getEmail(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
+		}
+		if(login.getUserRole()==UserRole.ROLE_VENDOR) {
+			return ResponseEntity.ok(new AuthResp("ROLE_VENDOR",request.getEmail(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
+		}
+		return ResponseEntity.ok(new AuthResp("ROLE_ADMIN",request.getEmail(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
 	}
 
 	// add request handling method for user registration

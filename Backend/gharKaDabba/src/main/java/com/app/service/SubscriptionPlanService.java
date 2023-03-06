@@ -1,8 +1,12 @@
 package com.app.service;
 
+import java.io.IOException;
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import com.app.dto.SubscriptionPlanDto;
+import com.app.entities.Tiffin;
 
 public interface SubscriptionPlanService {
 
@@ -21,5 +25,11 @@ public interface SubscriptionPlanService {
 	List<SubscriptionPlanDto> getAllAvaliablePlans();
 	
 	List<SubscriptionPlanDto> getAllNotAvaliablePlans();
+
+	String uploadImage(Long id, MultipartFile image) throws IOException;
+
+	byte[] getImage(Long id) throws IOException;
+
+	List<Tiffin> getTiffinsBySubcriptionPlanId(Long id);
 
 }

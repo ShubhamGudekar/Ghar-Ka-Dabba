@@ -89,7 +89,7 @@ public class LoginServiceImpl implements LoginService {
 			// saving in vendors table
 			entity = vendorRepo.save(vendor);
 		}
-
+			entity.setProfileImage("images\\2023-03-05blankProfile.jpg");
 		// adding entry to login table
 		loginRepo.save(login);
 		return new UserRegResponse("Registrstion Successfully Id Generated : " + entity.getId()).toString();

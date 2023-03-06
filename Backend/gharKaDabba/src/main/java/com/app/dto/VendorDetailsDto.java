@@ -24,4 +24,5 @@ public class VendorDetailsDto {
 	private String mobile;
 
 	private Address address;
+
 }

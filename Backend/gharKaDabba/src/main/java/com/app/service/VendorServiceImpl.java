@@ -13,6 +13,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.AddressDto;
 import com.app.dto.EditUserDetailsDto;
+import com.app.dto.SubscriptionPlanDto;
 import com.app.dto.VendorDetailsDto;
 import com.app.entities.Address;
 import com.app.entities.Login;
@@ -136,6 +137,13 @@ public class VendorServiceImpl implements VendorService {
 	@Override
 	public List<VendorDetailsDto> getAllVerifiedVendors() {
 		return vendorRepo.getAllVerifiedVendors().stream().map(v -> mapper.map(v, VendorDetailsDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<SubscriptionPlanDto> getAllAvaliablePlansByVId(Long id) {
+		Vendor vendor = vendorRepo.findById(id).orElseThrow();
+		return vendor.getPlans().stream().map(plan -> mapper.map(plan, SubscriptionPlanDto.class))
 				.collect(Collectors.toList());
 	}
 

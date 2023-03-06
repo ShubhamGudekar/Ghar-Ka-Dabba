@@ -1,5 +1,6 @@
 package com.app.service;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -8,9 +9,11 @@ import javax.transaction.Transactional;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.SubscriptionPlanDto;
 import com.app.entities.SubscriptionPlan;
+import com.app.entities.Tiffin;
 import com.app.entities.Vendor;
 import com.app.repository.SubscriptionPlanRepository;
 import com.app.repository.VendorRepository;
@@ -24,6 +27,9 @@ public class SubscriptionPlanServiceImpl implements SubscriptionPlanService {
 
 	@Autowired
 	private ModelMapper mapper;
+	
+	@Autowired
+	private ImageHandlingService imageService;
 
 	@Autowired
 	private SubscriptionPlanRepository subscriptionRepo;
@@ -60,7 +66,7 @@ public class SubscriptionPlanServiceImpl implements SubscriptionPlanService {
 		subscriptionPlan.setDescription(SubscriptionPlanDto.getDescription());
 		subscriptionPlan.setName(SubscriptionPlanDto.getName());
 		subscriptionPlan.setPlanType(SubscriptionPlanDto.getPlanType());
-		subscriptionPlan.setTiffins(SubscriptionPlanDto.getTiffins());
+//		subscriptionPlan.setTiffins(SubscriptionPlanDto.getTiffins());
 		subscriptionPlan.setPrice(SubscriptionPlanDto.getPrice());
 		return "Subscription Plan Updated Successfully!";
 	}
@@ -91,4 +97,30 @@ public class SubscriptionPlanServiceImpl implements SubscriptionPlanService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public String uploadImage(Long id, MultipartFile image) throws IOException {
+		SubscriptionPlan subscriptionPlan = subscriptionRepo.findById(id).orElseThrow();
+		subscriptionPlan.setImage(imageService.uploadImage(image));
+		return "Image Uploaded Successfully";
+	}
+
+	@Override
+	public byte[] getImage(Long id) throws IOException {
+		SubscriptionPlan subscriptionPlan= subscriptionRepo.findById(id).orElseThrow();
+		return imageService.getImage(subscriptionPlan.getImage());
+	}
+
+	@Override
+	public List<Tiffin> getTiffinsBySubcriptionPlanId(Long id) {
+		SubscriptionPlan subscriptionPlan = subscriptionRepo.findById(id).orElseThrow();
+		return subscriptionPlan.getTiffins().stream().collect(Collectors.toList());
+	}
+	
+	
+	
+	
+
+
+
+	
 }

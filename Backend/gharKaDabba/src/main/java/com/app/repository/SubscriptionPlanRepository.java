@@ -14,4 +14,5 @@ public interface SubscriptionPlanRepository extends JpaRepository<SubscriptionPl
 	
 	@Query("select sp from SubscriptionPlan sp where sp.isAvaliable=false")
 	List<SubscriptionPlan> getAllNotAvaliablePlans();
+
 }

@@ -120,4 +120,13 @@ public class CustomerServiceImpl implements CustomerService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public CustDetailsDto getByEmail(String email) {
+		Customer customer = customerRepo.findByEmail(email).orElseThrow();
+		System.out.println(customer);
+		return mapper.map(customer, CustDetailsDto.class);
+	}
+	
+	
+
 }

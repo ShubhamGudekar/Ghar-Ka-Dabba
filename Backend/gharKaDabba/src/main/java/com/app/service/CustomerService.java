@@ -7,9 +7,9 @@ import java.util.Set;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.AddressDto;
+import com.app.dto.CustDetailsDto;
 import com.app.dto.EditUserDetailsDto;
 import com.app.dto.SubscriptionPlanDto;
-import com.app.dto.CustDetailsDto;
 
 public interface CustomerService {
 
@@ -25,12 +25,14 @@ public interface CustomerService {
 
 	byte[] getImage(Long id) throws IOException;
 
-	String addDeliveryAddress(AddressDto address,Long id);
+	String addDeliveryAddress(AddressDto address, Long id);
 
 	List<AddressDto> getDeliveryAddress(Long id);
 
-	String updateDeliveryAddress(Set<AddressDto> addressDto,Long id);
+	String updateDeliveryAddress(Set<AddressDto> addressDto, Long id);
 
 	List<SubscriptionPlanDto> getSubscriptionPlans(Long id);
+
+	CustDetailsDto getByEmail(String email);
 
 }

@@ -31,6 +31,18 @@ public class Vendor extends UserEntity {
 
 	}
 	
+	
+	
+	public Vendor(String firstName, String lastName, String email, String mobile, boolean isVerified, boolean isBlocked,
+			Address address) {
+		super(firstName, lastName, email, mobile);
+		this.isVerified = isVerified;
+		this.isBlocked = isBlocked;
+		this.address = address;
+	}
+
+
+
 	@Embedded
 	private Address address;
 	

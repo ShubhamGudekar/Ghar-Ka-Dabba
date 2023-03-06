@@ -1,8 +1,5 @@
 package com.app.dto;
 
-import java.util.Set;
-
-import com.app.entities.Tiffin;
 import com.app.enums.PlanType;
 
 import lombok.AllArgsConstructor;
@@ -25,6 +22,4 @@ public class SubscriptionPlanDto {
 	private double price;
 
 	private PlanType planType;
-
-	private Set<Tiffin> tiffins;
 }

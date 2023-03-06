@@ -42,5 +42,13 @@ public class Customer extends UserEntity {
 	@JsonManagedReference
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true)
 	private Set<CustomerPlanSubscription> plans = new HashSet<>();
+
+	@Override
+	public String toString() {
+		return "Customer [getFirstName()=" + getFirstName() + ", getLastName()=" + getLastName() + ", getEmail()="
+				+ getEmail() + ", getMobile()=" + getMobile() + ", getId()=" + getId() + "]";
+	}
+	
+	
 	
 }
