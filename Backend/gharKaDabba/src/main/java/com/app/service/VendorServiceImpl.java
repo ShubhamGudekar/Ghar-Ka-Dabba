@@ -45,7 +45,7 @@ public class VendorServiceImpl implements VendorService {
 
 	@Override
 	public List<VendorDetailsDto> getAllVendors() {
-		return vendorRepo.findAll().stream().map(ven -> mapper.map(ven, VendorDetailsDto.class))
+		return vendorRepo.getAllAvaliableVendors().stream().map(ven -> mapper.map(ven, VendorDetailsDto.class))
 				.collect(Collectors.toList());
 	}
 
@@ -137,6 +137,12 @@ public class VendorServiceImpl implements VendorService {
 	@Override
 	public List<VendorDetailsDto> getAllVerifiedVendors() {
 		return vendorRepo.getAllVerifiedVendors().stream().map(v -> mapper.map(v, VendorDetailsDto.class))
+				.collect(Collectors.toList());
+	}
+	
+	@Override
+	public List<VendorDetailsDto> getUnAllVerifiedVendors() {
+		return vendorRepo.getAllUnVerifiedVendors().stream().map(v -> mapper.map(v, VendorDetailsDto.class))
 				.collect(Collectors.toList());
 	}
 

@@ -50,18 +50,18 @@ function Admin() {
                     <div className="container" style={{ marginBottom: "50px", textAlign: "center" }}>
                         <div className="row" >
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/updateVendor")}>
+                                <div className="card" onClick={() => navigate("/getAllApprovedVendors")}>
                                     <div className="card-body" >
-                                        <h5 className="card-title">Update Profile</h5>
-                                        <p className="card-text">Update your account details.</p>
+                                        <h5 className="card-title">Approved Vendors</h5>
+                                        <p className="card-text">List of All Vendors</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/addSubcriptionPlan")}>
+                                <div className="card" onClick={() => navigate("/getAllCustomers")}>
                                     <div className="card-body">
-                                        <h5 className="card-title">Add Subscription Plan</h5>
-                                        <p className="card-text">Add new Subscription Plan Details</p>
+                                        <h5 className="card-title">Get All Customers</h5>
+                                        <p className="card-text">List of All Customers</p>
                                     </div>
                                 </div>
                             </div>
@@ -69,24 +69,23 @@ function Admin() {
 
                         <div className="row my-3">
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/changePasswordVendor")}>
+                                <div className="card" onClick={() => navigate("/getUnapprovedVendors")}>
                                     <div className="card-body">
-                                        <h5 className="card-title">Change Password</h5>
-                                        <p className="card-text">Change your password</p>
-
+                                        <h5 className="card-title">Unapproved Vendors</h5>
+                                        <p className="card-text">List of all Unapproved Vendors</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/editSubscriptionPlan")}>
+                                <div className="card" onClick={() => navigate("/getBlockedVendors")}>
                                     <div className="card-body">
-                                        <h5 className="card-title">Edit Subscription Plan</h5>
-                                        <p className="card-text">Edit Subscription Plan Details</p>
+                                        <h5 className="card-title">Blocked Vendors</h5>
+                                        <p className="card-text">List of Blocked Vendors</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
-
+                        {/* 
                         <div className="row" >
                             <div className="col-sm-6">
                                 <div className="card" onClick={() => navigate("/disableSubscriptionPlan")}>
@@ -104,7 +103,7 @@ function Admin() {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
 
                     </div>
                 </>)

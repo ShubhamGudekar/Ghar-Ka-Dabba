@@ -13,17 +13,21 @@ import Customer from "./Component/Pages/Customer";
 import Login from "./Component/Pages/Login";
 import Vendor from "./Component/Pages/Vendor";
 import Admin from "./Component/Pages/Admin";
+import ApprovedVendorList from "./Component/Pages/ApprovedVendorList";
+import UnApprovedVendorList from "./Component/Pages/UnApprovedVendorList";
+import BlockedVendorList from "./Component/Pages/BlockedVendorList";
+import CustomerList from "./Component/Pages/CustomerList";
 
 function App() {
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [checkLoggedIn, setCheckLoggedIn] = useState(false);
 
   const updateLogin = (val) => {
-    setIsLoggedIn(val);
+    setCheckLoggedIn(val);
   };
 
   return (
     <Router>
-      <Navbar signIn={isLoggedIn} signOut={updateLogin} />
+      <Navbar signIn={checkLoggedIn} signOut={updateLogin} />
       <Routes>
         <Route exact path="/" element={<Home />} />
         <Route exact path="/Home" element={<Home />} />
@@ -34,6 +38,10 @@ function App() {
         <Route path="/customer" element={<Customer />} />
         <Route path="/vendor" element={<Vendor />} />
         <Route path="/admin" element={<Admin />} />
+        <Route path="/getAllApprovedVendors" element={<ApprovedVendorList />} />
+        <Route path="/getBlockedVendors" element={<BlockedVendorList />} />
+        <Route path="/getUnapprovedVendors" element={<UnApprovedVendorList />} />
+        <Route path="/getAllCustomers" element={<CustomerList />} />
       </Routes>
     </Router>
   );

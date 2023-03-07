@@ -44,4 +44,5 @@ public interface VendorService {
 	
 	VendorDetailsDto getByEmail(String email);
 	
+	public List<VendorDetailsDto> getUnAllVerifiedVendors();
 }

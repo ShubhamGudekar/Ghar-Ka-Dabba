@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -63,12 +64,14 @@ public class VendorController {
 		return new ResponseEntity<>(vendorService.getImage(id), HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{id}/approve")
 	public ResponseEntity<?> approveVendor(@PathVariable Long id) {
 		return new ResponseEntity<>(vendorService.approveVendor(id), HttpStatus.OK);
 
 	}
 
+	
 	@GetMapping("/allvendors")
 	public ResponseEntity<?> getAllVendors() {
 		return new ResponseEntity<>(vendorService.getAllVendors(), HttpStatus.OK);
@@ -94,24 +97,34 @@ public class VendorController {
 		return new ResponseEntity<>(vendorService.updateAddress(addressDto, id), HttpStatus.OK);
 	}
 
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{id}/block")
 	public ResponseEntity<?> blockVendor(@PathVariable Long id) {
 		return new ResponseEntity<>(vendorService.blockVendor(id), HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/{id}/unblock")
 	public ResponseEntity<?> unblockVendor(@PathVariable Long id) {
 		return new ResponseEntity<>(vendorService.unblockVendor(id), HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/getAllBlockedVendors")
 	public ResponseEntity<?> getAllBlockedVendors() {
 		return new ResponseEntity<>(vendorService.getAllBlockedVendors(), HttpStatus.OK);
 	}
 	
+	@PreAuthorize("hasRole('ADMIN')")
 	@GetMapping("/getAllVerifiedVendors")
 	public ResponseEntity<?> getAllVerifiedVendors() {
 		return new ResponseEntity<>(vendorService.getAllVerifiedVendors(), HttpStatus.OK);
+	}
+	
+	@PreAuthorize("hasRole('ADMIN')")
+	@GetMapping("/getAllUnVerifiedVendors")
+	public ResponseEntity<?> getAllUnVerifiedVendors() {
+		return new ResponseEntity<>(vendorService.getUnAllVerifiedVendors(), HttpStatus.OK);
 	}
 	
 	@GetMapping("getAllAvaliablePlanByVendorId/{id}")

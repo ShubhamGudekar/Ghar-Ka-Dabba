@@ -11,7 +11,7 @@ const Cards = () => {
 
     useEffect(() => {
         axios
-            .get(`${IP_ADDRS}/vendors/getAllVerifiedVendors`)
+            .get(`${IP_ADDRS}/vendors/allvendors`)
             .then((res) => {
                 console.log(res.data);
                 setVendorList(res.data);

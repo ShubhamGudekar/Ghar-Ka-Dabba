@@ -16,5 +16,11 @@ public interface VendorRepository extends JpaRepository<Vendor, Long> {
 	@Query("select v from Vendor v where v.isVerified=true")
 	List<Vendor> getAllVerifiedVendors();
 	
+	@Query("select v from Vendor v where v.isVerified=false")
+	List<Vendor> getAllUnVerifiedVendors();
+	
+	@Query("select v from Vendor v where v.isVerified=true and v.isBlocked=false")
+	List<Vendor> getAllAvaliableVendors();
+	
 	Optional<Vendor> getByEmail(String email);
 }
