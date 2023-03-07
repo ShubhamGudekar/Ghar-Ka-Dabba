@@ -3,6 +3,7 @@ import Card from "./CardUI";
 import { useState } from "react";
 import axios from "axios";
 import swal from "sweetalert";
+import { IP_ADDRS } from "../../Service/Constant"
 
 const Cards = () => {
 
@@ -10,7 +11,7 @@ const Cards = () => {
 
     useEffect(() => {
         axios
-            .get(`http://localhost:8080/vendors/getAllVerifiedVendors`)
+            .get(`${IP_ADDRS}/vendors/getAllVerifiedVendors`)
             .then((res) => {
                 console.log(res.data);
                 setVendorList(res.data);
@@ -25,7 +26,7 @@ const Cards = () => {
         <div className="row row-cols-3 row-cols-md-4 g-4">
             {vendorList.map((v, i) => {
                 return <div className="col" key={v.id}>
-                    <Card imgsrc={`http://localhost:8080/vendors/${v.id}/profileImage`} name={v.firstName} resrc={"vendor"} id={v.id} />
+                    <Card imgsrc={`${IP_ADDRS}/vendors/${v.id}/profileImage`} name={v.firstName} resrc={"vendor"} id={v.id} />
                 </div>
             })}
         </div>

@@ -4,6 +4,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import axios from "axios";
 import swal from "sweetalert";
+import { IP_ADDRS } from "../../Service/Constant";
 
 const SubscriptionPlanDetails = () => {
   const [subscriptionPlan, setSubcriptionPlan] = useState([]);
@@ -13,7 +14,7 @@ const SubscriptionPlanDetails = () => {
   useEffect(() => {
     //Getting Subcription Details
     axios
-      .get(`http://localhost:8080/subscription/plan/${spid}`)
+      .get(`${IP_ADDRS}/subscription/plan/${spid}`)
       .then((res) => {
         console.log(res.data);
         setSubcriptionPlan(res.data);
@@ -29,7 +30,7 @@ const SubscriptionPlanDetails = () => {
       <div className="jumbotron" style={{ marginLeft: 20 }}>
         <h1 className="display-4">
           {subscriptionPlan.name}
-          <img src={`http://localhost:8080/subscription/${spid}/dp`} style={{ float: "right", margin: 18 }} height={165} width={165} />
+          <img src={`${IP_ADDRS}/subscription/${spid}/dp`} style={{ float: "right", margin: 18 }} height={165} width={165} />
         </h1>
         <p style={{ marginLeft: 30 }}>{subscriptionPlan.description}</p>
         <p style={{ marginLeft: 30 }}>Plan Type : {subscriptionPlan.planType}</p>

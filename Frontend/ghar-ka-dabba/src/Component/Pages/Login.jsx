@@ -5,8 +5,10 @@ import { useNavigate } from 'react-router-dom';
 import { loadCaptchaEnginge, validateCaptcha, LoadCanvasTemplate } from "react-simple-captcha";
 import swal from "sweetalert";
 import "../../App.css"
+import { IP_ADDRS } from "../../Service/Constant"
 
-function Login() {
+function Login(props) {
+
     const [data, setData] = useState({
         username: "",
         password: "",
@@ -54,21 +56,15 @@ function Login() {
         let user_captcha = document.getElementById('user_captcha_input').value;
 
         if (validateCaptcha(user_captcha) === true) {
-            // if(true){
-            //    alert('Captcha Matched');
-            //    loadCaptchaEnginge(6); 
             const obj = { "email": data.username, "password": data.password }
-            axios.post(`http://localhost:8080/auth/signin`, obj)
+            axios.post(`${IP_ADDRS}/auth/signin`, obj)
                 .then(response => {
-                    console.log(response.data);
-                    console.log("Role " + response.data.role)
+                    props.isLogged(true);
                     if (response.data.role.includes("ROLE_CUSTOMER")) {
-                        console.log("in customer cmp");
                         sessionStorage.setItem("customer", JSON.stringify(response.data));
                         navigate(`/customer`);
                     }
                     else if (response.data.role.includes("ROLE_VENDOR")) {
-                        console.log("in vendor cmp");
                         sessionStorage.setItem("vendor", JSON.stringify(response.data));
                         navigate(`/vendor`);
                     }
@@ -83,7 +79,6 @@ function Login() {
 
         else {
             swal("Captcha Does Not Match !", "Enter Correct Captcha", "error");
-            // document.getElementById('user_captcha_input').value = "";
         }
 
     }

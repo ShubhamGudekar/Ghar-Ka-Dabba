@@ -4,8 +4,8 @@ import { useNavigate } from 'react-router-dom';
 import swal from "sweetalert";
 import { IP_ADDRS } from "../../Service/Constant"
 
-function Customer() {
-    const [customer, setCustomer] = useState({
+function Vendor() {
+    const [vendor, setVendor] = useState({
         firstName: "",
         email: "",
         lastName: "",
@@ -18,20 +18,20 @@ function Customer() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        let cust = JSON.parse(sessionStorage.getItem("customer"));
-        if (cust == null) {
+        let ven = JSON.parse(sessionStorage.getItem("vendor"));
+        if (ven == null) {
             swal("Not Authorized", "", "error");
         }
         else {
-            axios.get(`${IP_ADDRS}/customers/${cust.id}`)
+            axios.get(`${IP_ADDRS}/vendors/${ven.id}`)
                 .then((res) => {
                     console.log(res.data);
                     setLoggedIn(true);
-                    setCustomer({
+                    setVendor({
                         firstName: res.data.firstName, lastName: res.data.lastName,
-                        id: cust.id,
+                        id: ven.id,
                         email: res.data.email,
-                        jwt: cust.jwt
+                        jwt: ven.jwt
                     })
                 })
                 .catch((err) => {
@@ -47,15 +47,15 @@ function Customer() {
             {loggedIn ?
                 (<>
                     <div className="jumbotron" style={{ marginLeft: 20 }}>
-                        <img src={`${IP_ADDRS}/customers/${customer.id}/profileImage`} style={{ float: "right", marginRight: 18 }} height={165} width={165} />
+                        <img src={`${IP_ADDRS}/vendors/${vendor.id}/profileImage`} style={{ float: "right", marginRight: 18 }} height={165} width={165} />
                         <h3 style={{ marginTop: 10 }}>Hello ,
                         </h3>
                         <h1 style={{ marginLeft: 30 }}>
-                            {customer.firstName}&nbsp;{customer.lastName}
+                            {vendor.firstName}&nbsp;{vendor.lastName}
                         </h1>
 
                         <h5 style={{ marginLeft: 30 }}>
-                            {customer.email}
+                            {vendor.email}
                         </h5>
                         <br />
                     </div>
@@ -64,7 +64,7 @@ function Customer() {
                     <div className="container" style={{ marginBottom: "50px", textAlign: "center" }}>
                         <div className="row" >
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/updateCustomer")}>
+                                <div className="card" onClick={() => navigate("/updateVendor")}>
                                     <div className="card-body" >
                                         <h5 className="card-title">Update Profile</h5>
                                         <p className="card-text">Update your account details.</p>
@@ -72,10 +72,10 @@ function Customer() {
                                 </div>
                             </div>
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/viewCustOrder")}>
+                                <div className="card" onClick={() => navigate("/addSubcriptionPlan")}>
                                     <div className="card-body">
-                                        <h5 className="card-title">View Orders</h5>
-                                        <p className="card-text">Display Your All Orders </p>
+                                        <h5 className="card-title">Add Subscription Plan</h5>
+                                        <p className="card-text">Add new Subscription Plan Details</p>
                                     </div>
                                 </div>
                             </div>
@@ -83,23 +83,43 @@ function Customer() {
 
                         <div className="row my-3">
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/changePasswordCustomer")}>
+                                <div className="card" onClick={() => navigate("/changePasswordVendor")}>
                                     <div className="card-body">
                                         <h5 className="card-title">Change Password</h5>
-                                        <p className="card-text">Change your password.</p>
+                                        <p className="card-text">Change your password</p>
 
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/customerCurrentPlan")}>
+                                <div className="card" onClick={() => navigate("/editSubscriptionPlan")}>
                                     <div className="card-body">
-                                        <h5 className="card-title">Current Subscription</h5>
-                                        <p className="card-text">Display details abour Current Plan</p>
+                                        <h5 className="card-title">Edit Subscription Plan</h5>
+                                        <p className="card-text">Edit Subscription Plan Details</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
+                        <div className="row" >
+                            <div className="col-sm-6">
+                                <div className="card" onClick={() => navigate("/disableSubscriptionPlan")}>
+                                    <div className="card-body" >
+                                        <h5 className="card-title">Disable Subscription Plan</h5>
+                                        <p className="card-text">Make Subscription Plan Unavaliable for Purchase</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="col-sm-6">
+                                <div className="card" onClick={() => navigate("/enableSubscriptionPlan")}>
+                                    <div className="card-body">
+                                        <h5 className="card-title">Enable Subscription Plan</h5>
+                                        <p className="card-text">Make Subscription Plan Avaliable for Purchase</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </>)
 
@@ -109,4 +129,4 @@ function Customer() {
 
 }
 
-export default Customer;
+export default Vendor;

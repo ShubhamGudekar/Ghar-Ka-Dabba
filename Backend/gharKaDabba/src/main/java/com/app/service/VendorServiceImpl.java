@@ -147,4 +147,12 @@ public class VendorServiceImpl implements VendorService {
 				.collect(Collectors.toList());
 	}
 
+	@Override
+	public VendorDetailsDto getByEmail(String email) {
+		Vendor vendor = vendorRepo.getByEmail(email).orElseThrow();
+		return mapper.map(vendor, VendorDetailsDto.class);
+	}
+	
+	
+
 }

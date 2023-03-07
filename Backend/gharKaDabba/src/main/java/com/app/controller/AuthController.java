@@ -18,11 +18,15 @@ import com.app.dto.AuthRequest;
 import com.app.dto.AuthRequestOTP;
 import com.app.dto.AuthResp;
 import com.app.dto.ChangePasswordDto;
+import com.app.dto.CustDetailsDto;
 import com.app.dto.UserDTO;
+import com.app.dto.VendorDetailsDto;
 import com.app.entities.Login;
 import com.app.enums.UserRole;
 import com.app.security.jwt_utils.JwtUtils;
+import com.app.service.CustomerService;
 import com.app.service.LoginService;
+import com.app.service.VendorService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -41,6 +45,12 @@ public class AuthController {
 
 	@Autowired
 	private LoginService loginService;
+	
+	@Autowired
+	private CustomerService customerService;
+	
+	@Autowired
+	private VendorService vendorService;
 
 	// add a method to authenticate user . In case of success --send back token ,
 	// in case of failure send back err message
@@ -62,12 +72,14 @@ public class AuthController {
 		// => auth succcess
 		Login login = loginService.findByEmail(request.getEmail());
 		if(login.getUserRole()==UserRole.ROLE_CUSTOMER) {
-			return ResponseEntity.ok(new AuthResp("ROLE_CUSTOMER",request.getEmail(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
+			 CustDetailsDto customer = customerService.getByEmail(request.getEmail());
+			return ResponseEntity.ok(new AuthResp("ROLE_CUSTOMER",customer.getEmail(),customer.getId(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
 		}
 		if(login.getUserRole()==UserRole.ROLE_VENDOR) {
-			return ResponseEntity.ok(new AuthResp("ROLE_VENDOR",request.getEmail(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
+			VendorDetailsDto vendor = vendorService.getByEmail(request.getEmail());
+			return ResponseEntity.ok(new AuthResp("ROLE_VENDOR",vendor.getEmail(),vendor.getId(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
 		}
-		return ResponseEntity.ok(new AuthResp("ROLE_ADMIN",request.getEmail(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
+		return ResponseEntity.ok(new AuthResp("ROLE_ADMIN",request.getEmail(),(long)0,"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
 	}
 
 	// add request handling method for user registration

@@ -42,4 +42,6 @@ public interface VendorService {
 
 	List<SubscriptionPlanDto> getAllAvaliablePlansByVId(Long id);
 	
+	VendorDetailsDto getByEmail(String email);
+	
 }

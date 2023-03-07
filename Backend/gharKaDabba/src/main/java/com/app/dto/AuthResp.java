@@ -17,6 +17,8 @@ public class AuthResp {
 	
 	private String email;
 	
+	private Long id;
+	
 	private String message;
 	
 	private String jwt;

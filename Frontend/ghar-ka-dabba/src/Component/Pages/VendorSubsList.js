@@ -4,6 +4,7 @@ import "../../index.css";
 import axios from "axios";
 import swal from "sweetalert";
 import SP_Cards from "../Card/SubscriptionPlanCards";
+import { IP_ADDRS } from "../../Service/Constant";
 
 const VendorSubsList = () => {
   const [vendorDetails, setVendorDetails] = useState([]);
@@ -12,7 +13,7 @@ const VendorSubsList = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8080/vendors/${id}`)
+      .get(`${IP_ADDRS}/vendors/${id}`)
       .then((res) => {
         console.log(res.data);
         setVendorDetails(res.data);
@@ -23,7 +24,7 @@ const VendorSubsList = () => {
       });
 
     axios
-      .get(`http://localhost:8080/vendors/${id}/addresses`)
+      .get(`${IP_ADDRS}/vendors/${id}/addresses`)
       .then((res) => {
         console.log(res.data);
         setVendorAddress(res.data);
@@ -39,7 +40,7 @@ const VendorSubsList = () => {
       <div className="jumbotron" style={{ marginLeft: 20 }}>
         <h1 className="display-4">
           {vendorDetails.firstName}&nbsp;{vendorDetails.firstName}
-          <img src={`http://localhost:8080/vendors/${id}/profileImage`} style={{ float: "right", margin: 18 }} height={165} width={165} />
+          <img src={`${IP_ADDRS}/vendors/${id}/profileImage`} style={{ float: "right", margin: 18 }} height={165} width={165} />
         </h1>
         <p style={{ marginLeft: 30 }}>
           {vendorAddress.line1} ,{vendorAddress.line2}

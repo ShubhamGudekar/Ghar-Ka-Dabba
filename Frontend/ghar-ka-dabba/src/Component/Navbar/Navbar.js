@@ -1,31 +1,62 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Nav, NavLink, NavMenu } from "./NavbarElement";
-// import images from "../Carousal/images";
-// import ImageSlider from "../Carousal/imageSlider";
+import { useState } from "react";
 
-const Navbar = () => {
+const Navbar = (props) => {
+  const [loggedIn, setLoggedIn] = useState();
+  const [cust, setCust] = useState();
+  const [ven, setVen] = useState();
+  const [adm, setAdm] = useState();
+
+  useEffect(() => {
+    setLoggedIn(props.signIn);
+    setCust(JSON.parse(sessionStorage.getItem("customer")));
+    setVen(JSON.parse(sessionStorage.getItem("vendor")));
+    setAdm(JSON.parse(sessionStorage.getItem("admin")));
+  }, [props.signIn]);
+
+  const logout = () => {
+    sessionStorage.clear();
+    props.signOut(false);
+  };
+
   return (
     <>
-      <Nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ height: "50px" }}>
-        <div className="container-fluid">
-          <div className="navbar-header">
-            <NavMenu>
-              <NavLink className="navbar-brand" to="/">
-                gharkadabba
-              </NavLink>
-              <NavLink className="navbar-brand" to="/customer">
-                profile
-              </NavLink>
-            </NavMenu>
+      {loggedIn ? (
+        <Nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ height: "50px" }}>
+          <div className="container-fluid">
+            <div>
+              <NavMenu>
+                <NavLink to="/">gharkadabba</NavLink>
+              </NavMenu>
+            </div>
+            <div align="right">
+              <NavMenu>
+                {cust != null ? <NavLink to="/customer">profile</NavLink> : ven != null ? <NavLink to="/vendor">profile</NavLink> : adm != null ? <NavLink to="/admin">profile</NavLink> : ""}
+                <NavLink onClick={logout} to="/">
+                  Logout
+                </NavLink>
+              </NavMenu>
+            </div>
           </div>
-          <div align="right">
-            <NavMenu>
-              <NavLink to="/sign-in">Sign in</NavLink>
-              <NavLink to="/sign-up">Sign Up</NavLink>
-            </NavMenu>
+        </Nav>
+      ) : (
+        <Nav className="navbar navbar-expand-lg navbar-dark bg-dark" style={{ height: "50px" }}>
+          <div className="container-fluid">
+            <div>
+              <NavMenu>
+                <NavLink to="/">gharkadabba</NavLink>
+              </NavMenu>
+            </div>
+            <div align="right">
+              <NavMenu>
+                <NavLink to="/sign-in">Sign in</NavLink>
+                <NavLink to="/sign-up">Sign Up</NavLink>
+              </NavMenu>
+            </div>
           </div>
-        </div>
-      </Nav>
+        </Nav>
+      )}
     </>
   );
 };

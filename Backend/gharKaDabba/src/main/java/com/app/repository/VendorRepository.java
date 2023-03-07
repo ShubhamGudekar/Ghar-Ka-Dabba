@@ -1,6 +1,7 @@
 package com.app.repository;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -14,4 +15,6 @@ public interface VendorRepository extends JpaRepository<Vendor, Long> {
 	
 	@Query("select v from Vendor v where v.isVerified=true")
 	List<Vendor> getAllVerifiedVendors();
+	
+	Optional<Vendor> getByEmail(String email);
 }
