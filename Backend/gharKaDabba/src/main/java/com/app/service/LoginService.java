@@ -14,9 +14,13 @@ public interface LoginService {
 
 	String changePassword(ChangePasswordDto changePasswordDto);
 	
-	public String sendOTP(String email);
+	String sendOTP(String email);
 	
-	public boolean validateOTP(String email,int otp);
+	boolean validateOTP(String email,int otp);
+
+	String forgotPassword(String email);
+
+	String changeForgottenPassword(ChangePasswordDto changePasswordDto);
 
 	
 }

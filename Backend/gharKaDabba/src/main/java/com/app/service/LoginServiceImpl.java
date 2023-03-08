@@ -115,11 +115,11 @@ public class LoginServiceImpl implements LoginService {
 
 		OTP otpTran = new OTP(email, otp);
 		otpRepository.save(otpTran);
-
+		
 		SimpleMailMessage mesg = new SimpleMailMessage();
 		mesg.setTo(email);
 		mesg.setSubject("OTP for verification");
-		mesg.setText("Enter this OTP for verification : " + otp + "            Do not share it with anyone !!!!!");
+		mesg.setText("Enter this OTP for verification : " + otp + "\nDo not share it with anyone !!!!!");
 		sender.send(mesg);
 		return "Otp sent to Your Email";
 	}
@@ -131,10 +131,27 @@ public class LoginServiceImpl implements LoginService {
 		OTP persistOTP = otpRepository.findByEmailAndOtp(email, otp);
 		if (!now.isBefore(persistOTP.getDateCreated().plusMinutes(10)))
 			throw new RuntimeException("OTP expired, genrate new OTP");
-
-//		otpRepository.delete(persistOTP);
-
+		otpRepository.delete(persistOTP);
 		return true;
 	}
 
+	@Override
+	public String forgotPassword(String email) {
+		//Checking if email exist in database
+		Login login=loginRepo.findByEmail(email).orElseThrow(()->new RuntimeException("Email-id not Found"));
+		return sendOTP(login.getEmail());
+	}
+
+	@Override
+	public String changeForgottenPassword(ChangePasswordDto changePasswordDto) {
+		if(validateOTP(changePasswordDto.getEmail(),changePasswordDto.getOTP())) {
+		Login login = loginRepo.findByEmail(changePasswordDto.getEmail()).orElseThrow();
+		login.setPassword(encoder.encode(changePasswordDto.getNewPassword()));
+		return "Password Updated Successfully";
+		}
+		return "Password Update Failed,Please Retry";	
+	}
+
+	
+	
 }

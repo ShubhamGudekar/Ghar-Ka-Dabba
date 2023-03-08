@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./App.css";
+// import "./App.css";
 import Navbar from "./Component/Navbar/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Component/Pages/Home";
@@ -17,6 +17,8 @@ import ApprovedVendorList from "./Component/Pages/ApprovedVendorList";
 import UnApprovedVendorList from "./Component/Pages/UnApprovedVendorList";
 import BlockedVendorList from "./Component/Pages/BlockedVendorList";
 import CustomerList from "./Component/Pages/CustomerList";
+import ForgotPassword from "./Component/Pages/ForgotPassword";
+import ChangePassword from "./Component/Pages/ChangePassword";
 
 function App() {
   const [checkLoggedIn, setCheckLoggedIn] = useState(false);
@@ -33,10 +35,15 @@ function App() {
         <Route exact path="/Home" element={<Home />} />
         <Route path="/sign-in" element={<Login isLogged={updateLogin} />} />
         <Route path="/sign-up" element={<SignUp />} />
+        <Route path="/forgotpassword" element={<ForgotPassword />} />
+        <Route path="/changePassword" element={<ChangePassword />} />
+
         <Route path="/vendor/:id" element={<VendorSubsList />} />
         <Route path="subcription/plan/:spid" element={<SubscriptionPlanDetails />} />
         <Route path="/customer" element={<Customer />} />
+
         <Route path="/vendor" element={<Vendor />} />
+
         <Route path="/admin" element={<Admin />} />
         <Route path="/getAllApprovedVendors" element={<ApprovedVendorList />} />
         <Route path="/getBlockedVendors" element={<BlockedVendorList />} />

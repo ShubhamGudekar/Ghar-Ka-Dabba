@@ -83,10 +83,10 @@ function Customer() {
 
                         <div className="row my-3">
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/changePasswordCustomer")}>
+                                <div className="card" onClick={() => navigate("/changePassword")}>
                                     <div className="card-body">
                                         <h5 className="card-title">Change Password</h5>
-                                        <p className="card-text">Change your password.</p>
+                                        <p className="card-text">Change your password</p>
 
                                     </div>
                                 </div>

@@ -73,13 +73,13 @@ public class AuthController {
 		Login login = loginService.findByEmail(request.getEmail());
 		if(login.getUserRole()==UserRole.ROLE_CUSTOMER) {
 			 CustDetailsDto customer = customerService.getByEmail(request.getEmail());
-			return ResponseEntity.ok(new AuthResp("ROLE_CUSTOMER",customer.getEmail(),customer.getId(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
+			return ResponseEntity.ok(new AuthResp("ROLE_CUSTOMER",customer.getEmail(),customer.getFirstName(),customer.getId(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
 		}
 		if(login.getUserRole()==UserRole.ROLE_VENDOR) {
 			VendorDetailsDto vendor = vendorService.getByEmail(request.getEmail());
-			return ResponseEntity.ok(new AuthResp("ROLE_VENDOR",vendor.getEmail(),vendor.getId(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
+			return ResponseEntity.ok(new AuthResp("ROLE_VENDOR",vendor.getEmail(),vendor.getFirstName(),vendor.getId(),"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
 		}
-		return ResponseEntity.ok(new AuthResp("ROLE_ADMIN",request.getEmail(),(long)0,"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
+		return ResponseEntity.ok(new AuthResp("ROLE_ADMIN",request.getEmail(),"admin",(long)0,"Auth successful!", utils.generateJwtToken(authenticatedDetails)));
 	}
 
 	// add request handling method for user registration
@@ -97,8 +97,8 @@ public class AuthController {
 
 	// method to generateOTP
 	@PostMapping("/validateEmail")
-	public ResponseEntity<?> validateEmail(@RequestBody String email) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(loginService.sendOTP(email));
+	public ResponseEntity<?> validateEmail(@RequestBody ChangePasswordDto changePasswordDto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(loginService.sendOTP(changePasswordDto.getEmail()));
 	}
 
 	@PostMapping("/verifyOtp")
@@ -111,4 +111,14 @@ public class AuthController {
 		return ResponseEntity.status(HttpStatus.CREATED).body(str);
 	}
 
+	@PostMapping("/forgotPassword")
+	public ResponseEntity<?> forgotPassword(@RequestBody ChangePasswordDto changePasswordDto) {
+		System.out.println("email "+changePasswordDto);
+		return ResponseEntity.status(HttpStatus.CREATED).body(loginService.forgotPassword(changePasswordDto.getEmail()));
+	}
+	
+	@PostMapping("/changeForgottenPassword")
+	public ResponseEntity<?> changeForgottenPassword(@RequestBody ChangePasswordDto changePasswordDto) {
+		return ResponseEntity.status(HttpStatus.CREATED).body(loginService.changeForgottenPassword(changePasswordDto));
+	}
 }

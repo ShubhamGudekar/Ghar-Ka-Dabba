@@ -32,7 +32,7 @@ const Navbar = (props) => {
             </div>
             <div align="right">
               <NavMenu>
-                {cust != null ? <NavLink to="/customer">profile</NavLink> : ven != null ? <NavLink to="/vendor">profile</NavLink> : adm != null ? <NavLink to="/admin">profile</NavLink> : ""}
+                {cust != null ? <NavLink to="/customer">{cust.firstName}</NavLink> : ven != null ? <NavLink to="/vendor">{ven.firstName}</NavLink> : adm != null ? <NavLink to="/admin">{adm.firstName}</NavLink> : ""}
                 <NavLink onClick={logout} to="/">
                   Logout
                 </NavLink>
