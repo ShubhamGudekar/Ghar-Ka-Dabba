@@ -46,10 +46,10 @@ public class VendorController {
 
 	// REST end point to upload image
 	// url : http://localhost:8080/vendors/id/image
+	@CrossOrigin
 	@PostMapping(value = "/{id}/profileImage", consumes = "multipart/form-data")
 	public ResponseEntity<?> uploadProfileImage(@RequestParam MultipartFile profileImage, @PathVariable Long id)
 			throws IOException {
-
 		return new ResponseEntity<>(vendorService.uploadImage(id, profileImage), HttpStatus.CREATED);
 
 	}

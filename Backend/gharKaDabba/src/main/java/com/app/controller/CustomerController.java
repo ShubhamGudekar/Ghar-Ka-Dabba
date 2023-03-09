@@ -1,7 +1,6 @@
 package com.app.controller;
 
 import java.io.IOException;
-import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -90,7 +89,7 @@ public class CustomerController {
 	}
 	
 	@PutMapping("/{id}/editaddresses")
-	public ResponseEntity<?> editDeliveryAddress(@RequestBody Set<AddressDto> addressDto,@PathVariable Long id){
+	public ResponseEntity<?> editDeliveryAddress(@RequestBody AddressDto addressDto,@PathVariable Long id){
 		return new ResponseEntity<>(custService.updateDeliveryAddress(addressDto,id),HttpStatus.OK);
 	}
 	

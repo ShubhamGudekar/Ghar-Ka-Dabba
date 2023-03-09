@@ -4,9 +4,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.CollectionTable;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -30,10 +28,8 @@ public class Customer extends UserEntity {
 
 	}
 
-	@ElementCollection(fetch = FetchType.EAGER)
-	@CollectionTable(name = "delivery_addresses")
-	@Column(name = "cust_id")
-	private Set<Address> deliveryAddress = new HashSet<Address>();
+	@Embedded
+	private Address deliveryAddress;
 
 	@JsonManagedReference
 	@OneToMany(mappedBy = "customer", cascade = CascadeType.ALL, orphanRemoval = true,fetch = FetchType.EAGER)

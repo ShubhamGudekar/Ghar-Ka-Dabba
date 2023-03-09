@@ -83,10 +83,10 @@ function Vendor() {
 
                         <div className="row my-3">
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/changePassword")}>
+                                <div className="card" onClick={() => navigate("/VendorAllPlans")}>
                                     <div className="card-body">
-                                        <h5 className="card-title">Change Password</h5>
-                                        <p className="card-text">Change your password</p>
+                                        <h5 className="card-title">Display Subscription Plans</h5>
+                                        <p className="card-text">Show all Added Subscription Plans</p>
 
                                     </div>
                                 </div>

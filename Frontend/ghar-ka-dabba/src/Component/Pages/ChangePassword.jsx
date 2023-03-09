@@ -6,9 +6,6 @@ import { IP_ADDRS } from "../../Service/Constant"
 
 function ChangePassword() {
 
-    let ven;
-    let cust;
-
     const [userRole, setUserRole] = useState();
 
     const [data, setData] = useState({
@@ -36,13 +33,13 @@ function ChangePassword() {
 
 
     useEffect(() => {
-        ven = JSON.parse(sessionStorage.getItem("vendor"));
+        let ven = JSON.parse(sessionStorage.getItem("vendor"));
         if (ven != null) {
             setLogin({ email: ven.email, token: ven.jwt });
             setUserRole("ven")
         }
         else {
-            cust = JSON.parse(sessionStorage.getItem("customer"));
+            let cust = JSON.parse(sessionStorage.getItem("customer"));
             if (cust != null) {
                 setLogin({ email: cust.email, token: cust.jwt });
                 setUserRole("cust")
@@ -78,9 +75,7 @@ function ChangePassword() {
             }
             setData({ passerror: "" })
             if (true) {
-                console.log(login.email + " " + data.currentpass + " " + data.newpass)
                 let obj = { "email": login.email, "oldPassword": data.currentpass, "newPassword": data.newpass };
-                console.log(obj);
                 axios.post(`${IP_ADDRS}/auth/updatepassword`, obj).then(res => {
                     if (userRole == "ven") {
                         navigate(`/vendor`)

@@ -2,7 +2,6 @@ package com.app.service;
 
 import java.io.IOException;
 import java.util.List;
-import java.util.Set;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -27,9 +26,9 @@ public interface CustomerService {
 
 	String addDeliveryAddress(AddressDto address, Long id);
 
-	List<AddressDto> getDeliveryAddress(Long id);
+	AddressDto getDeliveryAddress(Long id);
 
-	String updateDeliveryAddress(Set<AddressDto> addressDto, Long id);
+	String updateDeliveryAddress(AddressDto addressDto, Long id);
 
 	List<SubscriptionPlanDto> getSubscriptionPlans(Long id);
 
