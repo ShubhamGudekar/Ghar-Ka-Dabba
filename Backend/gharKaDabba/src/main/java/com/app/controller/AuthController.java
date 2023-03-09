@@ -98,7 +98,8 @@ public class AuthController {
 	// method to generateOTP
 	@PostMapping("/validateEmail")
 	public ResponseEntity<?> validateEmail(@RequestBody ChangePasswordDto changePasswordDto) {
-		return ResponseEntity.status(HttpStatus.CREATED).body(loginService.sendOTP(changePasswordDto.getEmail()));
+		System.out.println(changePasswordDto.getEmail());
+		return ResponseEntity.status(HttpStatus.CREATED).body(loginService.validateEmail(changePasswordDto.getEmail()));
 	}
 
 	@PostMapping("/verifyOtp")

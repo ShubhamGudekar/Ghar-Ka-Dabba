@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "./Component/Navbar/Navbar";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./Component/Pages/Home";
-import SignUp from "./Component/Pages/Signup";
+import SignUp from "./Component/Pages/SignUp";
 // import Footer from "./Component/Footer/Footer";
 import VendorSubsList from "./Component/Pages/VendorSubsList";
 import SubscriptionPlanDetails from "./Component/Pages/SubscriptionPlanDetails";
@@ -22,6 +22,7 @@ import UpdateBasic from "./Component/Pages/UpdateBasic";
 import UpdateCustomer from "./Component/Pages/UpdateCustomer";
 import UpdateAddress from "./Component/Pages/UpdateAddress";
 import UpdateProfilePicture from "./Component/Pages/UpdateProfilePicture";
+import AddAddress from "./Component/Pages/AddAddress";
 
 function App() {
   const [checkLoggedIn, setCheckLoggedIn] = useState();
@@ -51,6 +52,7 @@ function App() {
         <Route path="/changePassword" element={<ChangePassword />} />
         <Route path="/updateBasicDetails" element={<UpdateBasic />} />
         <Route path="/editAddress" element={<UpdateAddress />} />
+        <Route path="/AddAddress" element={<AddAddress />} />
         <Route path="/uploadProfilePicture" element={<UpdateProfilePicture />} />
 
         {/* Customer Routes */}

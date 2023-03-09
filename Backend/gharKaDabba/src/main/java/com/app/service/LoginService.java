@@ -3,6 +3,7 @@ package com.app.service;
 import com.app.dto.ChangePasswordDto;
 import com.app.dto.UserDTO;
 import com.app.entities.Login;
+import com.app.entities.UserEntity;
 
 public interface LoginService {
 	
@@ -10,7 +11,7 @@ public interface LoginService {
 
 	void removeLogin(Login loginDetails);
 
-	String addLogin(UserDTO user);
+	UserEntity addLogin(UserDTO user);
 
 	String changePassword(ChangePasswordDto changePasswordDto);
 	
@@ -21,6 +22,8 @@ public interface LoginService {
 	String forgotPassword(String email);
 
 	String changeForgottenPassword(ChangePasswordDto changePasswordDto);
+
+	String validateEmail(String email);
 
 	
 }

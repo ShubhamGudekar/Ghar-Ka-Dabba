@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.Random;
 
 import javax.transaction.Transactional;
@@ -64,7 +65,7 @@ public class LoginServiceImpl implements LoginService {
 	}
 
 	@Override
-	public String addLogin(UserDTO user) {
+	public UserEntity addLogin(UserDTO user) {
 		// Extracting Role from request dto object
 		UserRole role = user.getUserRole();
 
@@ -92,7 +93,7 @@ public class LoginServiceImpl implements LoginService {
 			entity.setProfileImage("images\\2023-03-05blankProfile.jpg");
 		// adding entry to login table
 		loginRepo.save(login);
-		return new UserRegResponse("Registrstion Successfully Id Generated : " + entity.getId()).toString();
+		return entity;
 	}
 
 	@Override
@@ -122,6 +123,18 @@ public class LoginServiceImpl implements LoginService {
 		mesg.setText("Enter this OTP for verification : " + otp + "\nDo not share it with anyone !!!!!");
 		sender.send(mesg);
 		return "Otp sent to Your Email";
+	}
+
+	
+	
+	@Override
+	public String validateEmail(String email) {
+		Optional<Login> login = loginRepo.findByEmail(email);
+		System.out.println(login);
+		if(login.isPresent()) {
+			throw new RuntimeException("Email Already Registered");
+		}	
+		return sendOTP(email);
 	}
 
 	@Override

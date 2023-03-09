@@ -11,12 +11,14 @@ import com.app.enums.UserRole;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.ToString;
 
 @Entity
 @Table(name = "logins")
 @Getter
 @Setter
 @NoArgsConstructor
+@ToString
 public class Login extends BaseEntity{
 	
 	@Column(length = 35, unique = true)
