@@ -4,14 +4,11 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -52,10 +49,8 @@ public class SubscriptionPlan extends BaseEntity{
 		this.planType = planType;
 	}
 	
-	
-	@ElementCollection
-	@JoinTable(name="plan_tiffins")
-	@Column(name="subcription_id")
+	@JsonManagedReference
+	@OneToMany(mappedBy = "subscriptionPlan",cascade = CascadeType.ALL,orphanRemoval = true,fetch = FetchType.EAGER)
 	private Set<Tiffin> tiffins = new HashSet<Tiffin>();
 	
 	@JsonBackReference

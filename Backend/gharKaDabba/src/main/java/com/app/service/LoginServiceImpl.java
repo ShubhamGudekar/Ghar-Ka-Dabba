@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
 
 import com.app.dto.ChangePasswordDto;
 import com.app.dto.UserDTO;
-import com.app.dto.UserRegResponse;
 import com.app.entities.Customer;
 import com.app.entities.Login;
 import com.app.entities.OTP;

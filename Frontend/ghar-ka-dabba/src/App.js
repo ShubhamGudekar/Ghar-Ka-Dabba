@@ -23,6 +23,11 @@ import UpdateCustomer from "./Component/Pages/UpdateCustomer";
 import UpdateAddress from "./Component/Pages/UpdateAddress";
 import UpdateProfilePicture from "./Component/Pages/UpdateProfilePicture";
 import AddAddress from "./Component/Pages/AddAddress";
+import AddSubscription from "./Component/Pages/AddSubscription";
+import VendorSubPlanList from "./Component/Pages/VendorSubPlanList";
+import VendorDisabledSubPlanList from "./Component/Pages/VendorDisabledSubPlanList";
+import VendorEnabledSubPlanList from "./Component/Pages/VendorEnabledSubPlanList";
+import EditSubscription from "./Component/Pages/EditSubscription";
 
 function App() {
   const [checkLoggedIn, setCheckLoggedIn] = useState();
@@ -57,15 +62,18 @@ function App() {
 
         {/* Customer Routes */}
         <Route path="/vendor/:id" element={<VendorSubsList />} />
-        <Route path="subcription/plan/:spid" element={<SubscriptionPlanDetails />} />
+        <Route path="/subcription/plan/:spid" element={<SubscriptionPlanDetails />} />
         <Route path="/customer" element={<Customer />} />
         <Route path="/updateCustomer" element={<UpdateCustomer />}></Route>
 
         {/* Vendor Routes */}
         <Route path="/vendor" element={<Vendor />} />
         <Route path="/updateVendor" element={<UpdateVendor />} />
-        <Route path="/updateVendorAddress" element={<UpdateVendor />} />
-        <Route path="/updateVendorProfilePicture" element={<UpdateVendor />} />
+        <Route path="/addSubcriptionPlan" element={<AddSubscription />} />
+        <Route path="/editSubscriptionPlan/:id" element={<EditSubscription />} />
+        <Route path="/vendorAllPlans" element={<VendorSubPlanList />} />
+        <Route path="/disabledPlans" element={<VendorDisabledSubPlanList />} />
+        <Route path="/enabledPlans" element={<VendorEnabledSubPlanList />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<Admin />} />

@@ -40,7 +40,7 @@ public class SecurityConfig {
 				.authorizeRequests()
 				.antMatchers("/admins").hasRole("ADMIN")
 				.antMatchers("/customers/**").permitAll()//hasRole("CUSTOMER")
-				.antMatchers("/vendors/**").permitAll()//hasRole("VENDOR")
+				.antMatchers("/vendors/**","/tiffins/**").permitAll()//hasRole("VENDOR")
 				.antMatchers("/home", "/orders/**","/auth/**", "/swagger*/**", "/v*/api-docs/**","/subscription/**","/customerplan/**").permitAll()
 				.antMatchers(HttpMethod.OPTIONS).permitAll().anyRequest().authenticated()
 

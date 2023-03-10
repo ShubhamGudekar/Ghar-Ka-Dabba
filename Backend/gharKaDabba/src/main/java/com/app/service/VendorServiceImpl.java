@@ -139,17 +139,10 @@ public class VendorServiceImpl implements VendorService {
 		return vendorRepo.getAllVerifiedVendors().stream().map(v -> mapper.map(v, VendorDetailsDto.class))
 				.collect(Collectors.toList());
 	}
-	
+
 	@Override
 	public List<VendorDetailsDto> getUnAllVerifiedVendors() {
 		return vendorRepo.getAllUnVerifiedVendors().stream().map(v -> mapper.map(v, VendorDetailsDto.class))
-				.collect(Collectors.toList());
-	}
-
-	@Override
-	public List<SubscriptionPlanDto> getAllAvaliablePlansByVId(Long id) {
-		Vendor vendor = vendorRepo.findById(id).orElseThrow();
-		return vendor.getPlans().stream().map(plan -> mapper.map(plan, SubscriptionPlanDto.class))
 				.collect(Collectors.toList());
 	}
 
@@ -158,7 +151,26 @@ public class VendorServiceImpl implements VendorService {
 		Vendor vendor = vendorRepo.getByEmail(email).orElseThrow();
 		return mapper.map(vendor, VendorDetailsDto.class);
 	}
-	
-	
+
+	@Override
+	public List<SubscriptionPlanDto> getAllAvaliablePlansByVId(Long id) {
+		Vendor vendor = vendorRepo.findById(id).orElseThrow();
+		return vendor.getPlans().stream().filter(p -> p.isAvaliable() == true)
+				.map(plan -> mapper.map(plan, SubscriptionPlanDto.class)).collect(Collectors.toList());
+	}
+
+	@Override
+	public List<SubscriptionPlanDto> getAllPlansByVId(Long id) {
+		Vendor vendor = vendorRepo.findById(id).orElseThrow();
+		return vendor.getPlans().stream().map(plan -> mapper.map(plan, SubscriptionPlanDto.class))
+				.collect(Collectors.toList());
+	}
+
+	@Override
+	public List<SubscriptionPlanDto> getAllDisabledPlansByVId(Long id) {
+		Vendor vendor = vendorRepo.findById(id).orElseThrow();
+		return vendor.getPlans().stream().filter(p -> p.isAvaliable() == false)
+				.map(plan -> mapper.map(plan, SubscriptionPlanDto.class)).collect(Collectors.toList());
+	}
 
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import swal from "sweetalert";
+import { IP_ADDRS } from "../../Service/Constant";
 
 function AddAddress() {
 
@@ -55,7 +56,7 @@ function AddAddress() {
       console.log(address);
 
       axios
-        .post(`http://localhost:8080/${userRole}/${id}/addaddress`, address)
+        .post(`${IP_ADDRS}/${userRole}/${id}/addaddress`, address)
         .then((response) => {
           setAddress({ Line1: "", Line2: "", city: "", pincode: "", state: "" });
           swal(`${response.data}`, "", "success")

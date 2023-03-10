@@ -128,8 +128,18 @@ public class VendorController {
 	}
 	
 	@GetMapping("getAllAvaliablePlanByVendorId/{id}")
-	public ResponseEntity<?> getAllAvaliablePlansById(@PathVariable Long id) {
+	public ResponseEntity<?> getAllAvaliablePlansByVId(@PathVariable Long id) {
 		return new ResponseEntity<>(vendorService.getAllAvaliablePlansByVId(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("getAllPlanByVendorId/{id}")
+	public ResponseEntity<?> getAllPlansByVId(@PathVariable Long id) {
+		return new ResponseEntity<>(vendorService.getAllPlansByVId(id), HttpStatus.OK);
+	}
+	
+	@GetMapping("getAllDisabledPlanByVendorId/{id}")
+	public ResponseEntity<?> getAllDisabledPlansByVId(@PathVariable Long id) {
+		return new ResponseEntity<>(vendorService.getAllDisabledPlansByVId(id), HttpStatus.OK);
 	}
 	
 }

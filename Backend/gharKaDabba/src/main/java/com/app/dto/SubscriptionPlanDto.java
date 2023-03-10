@@ -22,4 +22,7 @@ public class SubscriptionPlanDto {
 	private double price;
 
 	private PlanType planType;
+	
+	private boolean isAvaliable;
+	
 }

@@ -37,6 +37,7 @@ public class SubscriptionPlanController {
 
 	@GetMapping("/plan/{id}")
 	public ResponseEntity<?> getSubscriptionPlanById(@PathVariable long id) {
+		System.out.println(id);
 		return new ResponseEntity<>(subscriptionPlanService.getSubscriptionPlanById(id), HttpStatus.OK);
 	}
 
@@ -74,10 +75,11 @@ public class SubscriptionPlanController {
 		return new ResponseEntity<>(subscriptionPlanService.getAllNotAvaliablePlans(), HttpStatus.OK);
 	}
 
-	@PostMapping(value = "/{id}/dp", consumes = "multipart/form-data")
-	public ResponseEntity<?> uploadImage(@RequestParam MultipartFile image, @PathVariable Long id) throws IOException {
+	@PostMapping(value = "/{id}/subPlanImage", consumes = "multipart/form-data")
+	public ResponseEntity<?> uploadProfileImage(@RequestParam MultipartFile subPlanImage, @PathVariable Long id)
+			throws IOException {
 
-		return new ResponseEntity<>(subscriptionPlanService.uploadImage(id, image), HttpStatus.CREATED);
+		return new ResponseEntity<>(subscriptionPlanService.uploadImage(id, subPlanImage), HttpStatus.CREATED);
 
 	}
 
@@ -93,4 +95,5 @@ public class SubscriptionPlanController {
 		return new ResponseEntity<>(subscriptionPlanService.getTiffinsBySubcriptionPlanId(id),HttpStatus.OK);
 	}
 
+	
 }

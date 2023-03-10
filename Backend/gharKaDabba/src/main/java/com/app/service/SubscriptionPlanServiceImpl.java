@@ -36,13 +36,13 @@ public class SubscriptionPlanServiceImpl implements SubscriptionPlanService {
 
 	// add new subscription plan
 	@Override
-	public String addNewSubscriptionPlan(SubscriptionPlanDto SubscriptionPlanDto, Long vednorId) {
+	public SubscriptionPlanDto addNewSubscriptionPlan(SubscriptionPlanDto SubscriptionPlanDto, Long vednorId) {
 		Vendor vendor = vendorRepo.findById(vednorId).orElseThrow();
 		SubscriptionPlan newSubscriptionPlan = mapper.map(SubscriptionPlanDto, SubscriptionPlan.class);
 		newSubscriptionPlan.setAvaliable(true);
 		newSubscriptionPlan.setVendor(vendor);
 		newSubscriptionPlan = subscriptionRepo.save(newSubscriptionPlan);
-		return "Subscription Added Successfully with Id : " + newSubscriptionPlan.getId();
+		return mapper.map(newSubscriptionPlan,SubscriptionPlanDto.class);
 	}
 
 	// get all subscription plans

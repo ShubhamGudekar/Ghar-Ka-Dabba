@@ -10,7 +10,7 @@ import com.app.entities.Tiffin;
 
 public interface SubscriptionPlanService {
 
-	String addNewSubscriptionPlan(SubscriptionPlanDto SubscriptionPlanDto, Long vendorId);
+	SubscriptionPlanDto addNewSubscriptionPlan(SubscriptionPlanDto SubscriptionPlanDto, Long vendorId);
 
 	List<SubscriptionPlanDto> getAllSubscriptionPlans();
 

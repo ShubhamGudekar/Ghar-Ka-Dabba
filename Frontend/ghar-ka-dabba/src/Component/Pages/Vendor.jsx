@@ -83,7 +83,7 @@ function Vendor() {
 
                         <div className="row my-3">
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/VendorAllPlans")}>
+                                <div className="card" onClick={() => navigate("/vendorAllPlans")}>
                                     <div className="card-body">
                                         <h5 className="card-title">Display Subscription Plans</h5>
                                         <p className="card-text">Show all Added Subscription Plans</p>
@@ -92,10 +92,10 @@ function Vendor() {
                                 </div>
                             </div>
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/editSubscriptionPlan")}>
+                                <div className="card" onClick={() => navigate("/showSubscribedCustomers")}>
                                     <div className="card-body">
-                                        <h5 className="card-title">Edit Subscription Plan</h5>
-                                        <p className="card-text">Edit Subscription Plan Details</p>
+                                        <h5 className="card-title">Subscribed Customers</h5>
+                                        <p className="card-text">Show All Customers Subscribed to Plans</p>
                                     </div>
                                 </div>
                             </div>
@@ -103,18 +103,18 @@ function Vendor() {
 
                         <div className="row" >
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/disableSubscriptionPlan")}>
+                                <div className="card" onClick={() => navigate("/disabledPlans")}>
                                     <div className="card-body" >
-                                        <h5 className="card-title">Disable Subscription Plan</h5>
-                                        <p className="card-text">Make Subscription Plan Unavaliable for Purchase</p>
+                                        <h5 className="card-title">Disabled Subscription Plans</h5>
+                                        <p className="card-text">Show Disabled Subscription Plans</p>
                                     </div>
                                 </div>
                             </div>
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/enableSubscriptionPlan")}>
+                                <div className="card" onClick={() => navigate("/enabledPlans")}>
                                     <div className="card-body">
-                                        <h5 className="card-title">Enable Subscription Plan</h5>
-                                        <p className="card-text">Make Subscription Plan Avaliable for Purchase</p>
+                                        <h5 className="card-title">Enabled Subscription Plan</h5>
+                                        <p className="card-text">Show Enabled Subscription Plans</p>
                                     </div>
                                 </div>
                             </div>

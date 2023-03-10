@@ -90,7 +90,7 @@ function UpdateProfilePicture() {
 
                     <form>
                         <div>
-                            <img src={`${IP_ADDRS}/${userRole}/${data.id}/profileImage`} height={200} width={200} />
+                            <img src={`${IP_ADDRS}/${userRole}/${data.id}/profileImage`} height={200} width={200} style={{ marginLeft: 170 }} />
                         </div>
 
                         <div style={{ marginTop: '10px' }} className="form-group">

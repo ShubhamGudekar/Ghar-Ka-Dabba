@@ -1,23 +1,23 @@
 package com.app.entities;
 
-import javax.persistence.Embeddable;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.ManyToOne;
 
 import com.app.enums.FoodType;
 import com.app.enums.WeekDayAndTime;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
-import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-@Embeddable
+@Entity
 @Getter
 @Setter
 @NoArgsConstructor
-@AllArgsConstructor
-public class Tiffin{
+public class Tiffin extends BaseEntity{
 
 	private String name;
 	 
@@ -31,8 +31,11 @@ public class Tiffin{
 	@Enumerated(EnumType.STRING)
 	private WeekDayAndTime day;
 	
-	private String ImagePath;
+	private String imagePath;
 	
+	@ManyToOne
+	@JsonBackReference
+	private SubscriptionPlan subscriptionPlan;
 	
 	
 }
