@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.dto.CustomerPlanDto;
 import com.app.dto.SubscriptionPlanDto;
 import com.app.entities.Tiffin;
 
@@ -31,5 +32,7 @@ public interface SubscriptionPlanService {
 	byte[] getImage(Long id) throws IOException;
 
 	List<Tiffin> getTiffinsBySubcriptionPlanId(Long id);
+
+	List<CustomerPlanDto> getAllCustomerSubscribedToSubPlanId(Long id);
 
 }

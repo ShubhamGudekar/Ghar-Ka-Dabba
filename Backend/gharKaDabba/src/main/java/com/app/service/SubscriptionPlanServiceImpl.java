@@ -1,6 +1,7 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.app.dto.CustomerPlanDto;
 import com.app.dto.SubscriptionPlanDto;
+import com.app.entities.Address;
 import com.app.entities.SubscriptionPlan;
 import com.app.entities.Tiffin;
 import com.app.entities.Vendor;
@@ -116,7 +119,27 @@ public class SubscriptionPlanServiceImpl implements SubscriptionPlanService {
 		return subscriptionPlan.getTiffins().stream().collect(Collectors.toList());
 	}
 	
-	
+	@Override
+	public List<CustomerPlanDto> getAllCustomerSubscribedToSubPlanId(Long id){
+		SubscriptionPlan subscriptionPlan = subscriptionRepo.findById(id).orElseThrow();
+		List<CustomerPlanDto> customerDetails = new ArrayList<CustomerPlanDto>(); 
+		subscriptionPlan.getPlans().stream().forEach(cp->{
+			CustomerPlanDto customerPlanDto=new CustomerPlanDto();
+			customerPlanDto=mapper.map(cp,CustomerPlanDto.class);
+			customerPlanDto.setCustFirstName(cp.getCustomer().getFirstName());
+			customerPlanDto.setCustLastName(cp.getCustomer().getLastName());
+			customerPlanDto.setCustId(cp.getCustomer().getId());
+			Address address = cp.getCustomer().getDeliveryAddress();
+			customerPlanDto.setCity(address.getCity());
+			customerPlanDto.setLine1(address.getLine1());
+			customerPlanDto.setLine2(address.getLine2());
+			customerPlanDto.setPincode(address.getPincode());
+			customerPlanDto.setState(address.getState());
+			customerDetails.add(customerPlanDto);
+		});
+		
+		return customerDetails;
+	}
 	
 	
 

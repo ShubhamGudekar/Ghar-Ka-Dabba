@@ -20,5 +20,20 @@ public class CustomerPlanDto {
 	
 	private LocalDate endDate;
 
+	private long custId;
+	
+	private String custFirstName;
+	
+	private String custLastName;
+	
+	private String Line1;
+
+	private String Line2;
+
+	private String city;
+
+	private int pincode;
+
+	private String state;
 
 }

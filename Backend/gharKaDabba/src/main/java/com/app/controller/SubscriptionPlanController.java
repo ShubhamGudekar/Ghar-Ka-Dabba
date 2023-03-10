@@ -65,12 +65,12 @@ public class SubscriptionPlanController {
 		return new ResponseEntity<>(subscriptionPlanService.activatePlanById(id), HttpStatus.OK);
 	}
 
-	@GetMapping("getAllAvaliablePlans")
+	@GetMapping("/getAllAvaliablePlans")
 	public ResponseEntity<?> getAllAvaliablePlans() {
 		return new ResponseEntity<>(subscriptionPlanService.getAllAvaliablePlans(), HttpStatus.OK);
 	}
 
-	@GetMapping("getAllNotAvaliablePlans")
+	@GetMapping("/getAllNotAvaliablePlans")
 	public ResponseEntity<?> getAllNonAvaliablePlans() {
 		return new ResponseEntity<>(subscriptionPlanService.getAllNotAvaliablePlans(), HttpStatus.OK);
 	}
@@ -90,10 +90,13 @@ public class SubscriptionPlanController {
 		return new ResponseEntity<>(subscriptionPlanService.getImage(id), HttpStatus.OK);
 	}
 	
-	@GetMapping("getTiffinsBySubPlanId/{id}")
+	@GetMapping("/getTiffinsBySubPlanId/{id}")
 	public ResponseEntity<?> getTiffinsBySubcriptionPlanId(@PathVariable Long id){
 		return new ResponseEntity<>(subscriptionPlanService.getTiffinsBySubcriptionPlanId(id),HttpStatus.OK);
 	}
 
-	
+	@GetMapping("/getAllCustomerSubscribedToSubPlanId/{id}")
+	public ResponseEntity<?> getAllCustomerSubscribedToSubPlanId(@PathVariable Long id){
+		return new ResponseEntity<>(subscriptionPlanService.getAllCustomerSubscribedToSubPlanId(id),HttpStatus.OK);
+	}
 }

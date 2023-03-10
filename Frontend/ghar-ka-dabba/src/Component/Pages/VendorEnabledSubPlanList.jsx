@@ -62,6 +62,7 @@ const VendorEnabledSubPlanList = () => {
                                 <th>Price</th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,8 +75,12 @@ const VendorEnabledSubPlanList = () => {
                                         <td>{v.planType}</td>
                                         <td>{v.price} /-   </td>
                                         <td>
+                                            <button className="btn btn-primary" onClick={() => navigate(`/showSubscribedCustomers/${v.id}`)}>Customers</button>
+                                        </td>
+                                        <td>
                                             <button className="btn btn-danger" onClick={() => navigate(`/editSubscriptionPlan/${v.id}`)}>Edit</button>
                                         </td>
+
                                         <td>
                                             {v.avaliable ? (<button className="btn btn-danger" onClick={() => makeUnAvaliable(v)}>Disable</button>) : (<button className="btn btn-primary" onClick={() => makeAvaliable(v)}>Enable</button>)}
                                         </td>

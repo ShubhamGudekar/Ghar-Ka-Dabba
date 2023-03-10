@@ -39,7 +39,7 @@ const VendorSubsList = () => {
     <div>
       <div className="jumbotron" style={{ marginLeft: 20 }}>
         <h1 className="display-4">
-          {vendorDetails.firstName}&nbsp;{vendorDetails.firstName}
+          {vendorDetails.firstName}&nbsp;{vendorDetails.lastName}
           <img src={`${IP_ADDRS}/vendors/${id}/profileImage`} style={{ float: "right", margin: 18 }} height={165} width={165} />
         </h1>
         <p style={{ marginLeft: 30 }}>

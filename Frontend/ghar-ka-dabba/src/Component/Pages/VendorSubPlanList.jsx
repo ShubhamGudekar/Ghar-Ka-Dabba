@@ -61,6 +61,7 @@ const VendorSubPlanList = () => {
                                 <th>Status</th>
                                 <th></th>
                                 <th></th>
+                                <th></th>
                             </tr>
                         </thead>
                         <tbody>
@@ -74,6 +75,9 @@ const VendorSubPlanList = () => {
                                         <td>{v.price} /-   </td>
                                         <td>
                                             {v.avaliable ? "Avaliable" : "Not Avaliable"}
+                                        </td>
+                                        <td>
+                                            <button className="btn btn-primary" onClick={() => navigate(`/showSubscribedCustomers/${v.id}`)}>Customers</button>
                                         </td>
                                         <td>
                                             <button className="btn btn-danger" onClick={() => navigate(`/editSubscriptionPlan/${v.id}`)}>Edit</button>

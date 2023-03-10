@@ -28,6 +28,7 @@ import VendorSubPlanList from "./Component/Pages/VendorSubPlanList";
 import VendorDisabledSubPlanList from "./Component/Pages/VendorDisabledSubPlanList";
 import VendorEnabledSubPlanList from "./Component/Pages/VendorEnabledSubPlanList";
 import EditSubscription from "./Component/Pages/EditSubscription";
+import CustomerSubscribedList from "./Component/Pages/CustomerSubscribedList ";
 
 function App() {
   const [checkLoggedIn, setCheckLoggedIn] = useState();
@@ -74,6 +75,7 @@ function App() {
         <Route path="/vendorAllPlans" element={<VendorSubPlanList />} />
         <Route path="/disabledPlans" element={<VendorDisabledSubPlanList />} />
         <Route path="/enabledPlans" element={<VendorEnabledSubPlanList />} />
+        <Route path="/showSubscribedCustomers/:id" element={<CustomerSubscribedList />} />
 
         {/* Admin Routes */}
         <Route path="/admin" element={<Admin />} />

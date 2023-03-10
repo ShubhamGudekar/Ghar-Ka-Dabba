@@ -44,6 +44,13 @@ public class CustomerPlanSubscription extends BaseEntity {
 		this.customer = customer;
 		this.subscriptionPlan = subscriptionPlan;
 	}
+
+	@Override
+	public String toString() {
+		return "CustomerPlanSubscription [startDate=" + startDate + ", endDate=" + endDate + ", customer=" + customer.getId()
+				+ ", subscriptionPlan=" + subscriptionPlan.getId() + "]";
+	}
+	
 	
 	
 

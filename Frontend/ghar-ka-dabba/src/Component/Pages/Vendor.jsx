@@ -92,10 +92,10 @@ function Vendor() {
                                 </div>
                             </div>
                             <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/showSubscribedCustomers")}>
+                                <div className="card" onClick={() => navigate("/enabledPlans")}>
                                     <div className="card-body">
-                                        <h5 className="card-title">Subscribed Customers</h5>
-                                        <p className="card-text">Show All Customers Subscribed to Plans</p>
+                                        <h5 className="card-title">Enabled Subscription Plan</h5>
+                                        <p className="card-text">Show Enabled Subscription Plans</p>
                                     </div>
                                 </div>
                             </div>
@@ -110,14 +110,7 @@ function Vendor() {
                                     </div>
                                 </div>
                             </div>
-                            <div className="col-sm-6">
-                                <div className="card" onClick={() => navigate("/enabledPlans")}>
-                                    <div className="card-body">
-                                        <h5 className="card-title">Enabled Subscription Plan</h5>
-                                        <p className="card-text">Show Enabled Subscription Plans</p>
-                                    </div>
-                                </div>
-                            </div>
+
                         </div>
 
                     </div>
