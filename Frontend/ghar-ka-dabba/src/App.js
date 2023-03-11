@@ -29,6 +29,9 @@ import VendorDisabledSubPlanList from "./Component/Pages/VendorDisabledSubPlanLi
 import VendorEnabledSubPlanList from "./Component/Pages/VendorEnabledSubPlanList";
 import EditSubscription from "./Component/Pages/EditSubscription";
 import CustomerSubscribedList from "./Component/Pages/CustomerSubscribedList ";
+import TiffinDetails from "./Component/Pages/TiffinDetails";
+import CustomerOrderList from "./Component/Pages/CustomerOrderList";
+import CustomerOngoingList from "./Component/Pages/CustomerOngoingList";
 
 function App() {
   const [checkLoggedIn, setCheckLoggedIn] = useState();
@@ -60,12 +63,15 @@ function App() {
         <Route path="/editAddress" element={<UpdateAddress />} />
         <Route path="/AddAddress" element={<AddAddress />} />
         <Route path="/uploadProfilePicture" element={<UpdateProfilePicture />} />
+        <Route path="/tiffin/:spid/:id" element={<TiffinDetails />} />
 
         {/* Customer Routes */}
         <Route path="/vendor/:id" element={<VendorSubsList />} />
-        <Route path="/subcription/plan/:spid" element={<SubscriptionPlanDetails />} />
+        <Route path="/subcription/plan/:spid" signIn={checkLoggedIn} element={<SubscriptionPlanDetails />} />
         <Route path="/customer" element={<Customer />} />
         <Route path="/updateCustomer" element={<UpdateCustomer />}></Route>
+        <Route path="/viewCustOrder" element={<CustomerOrderList />}></Route>
+        <Route path="/customerCurrentPlan" element={<CustomerOngoingList />}></Route>
 
         {/* Vendor Routes */}
         <Route path="/vendor" element={<Vendor />} />

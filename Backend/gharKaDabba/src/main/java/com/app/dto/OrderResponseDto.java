@@ -1,7 +1,6 @@
 package com.app.dto;
 
 import java.time.LocalDateTime;
-import java.util.List;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -22,8 +21,11 @@ public class OrderResponseDto {
 	
 	private long customerId;
 	
-	private double paymentAmount;
+//	rivate double paymentAmount;
 	
-	private List<Long> planIds;
+	private Long planIds;
 	
+	private String name;
+	
+	private double price;
 }

@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 import javax.transaction.Transactional;
 
@@ -51,7 +50,11 @@ public class OrderServiceImpl implements OrderService {
 			responseDto.setCustomerId(order.getCustomer().getId());
 			responseDto.setDateTime(order.getDateTime());
 			// responseDto.setPaymentAmount(order.getPayment().getAmount());
-			responseDto.setPlanIds(order.getPlans().stream().map(plan -> plan.getId()).collect(Collectors.toList()));
+			order.getPlans().forEach(p->{
+				responseDto.setName(p.getName()) ;
+				responseDto.setPrice(p.getPrice());
+				responseDto.setPlanIds(p.getId());
+			});
 			orderDetails.add(responseDto);
 		});
 
@@ -66,7 +69,11 @@ public class OrderServiceImpl implements OrderService {
 		responseDto.setCustomerId(order.getCustomer().getId());
 		responseDto.setDateTime(order.getDateTime());
 		// responseDto.setPaymentAmount(order.getPayment().getAmount());
-		responseDto.setPlanIds(order.getPlans().stream().map(plan -> plan.getId()).collect(Collectors.toList()));
+		order.getPlans().forEach(p->{
+			responseDto.setName(p.getName()) ;
+			responseDto.setPrice(p.getPrice());
+			responseDto.setPlanIds(p.getId());
+		});
 		return responseDto;
 	}
 
@@ -81,7 +88,12 @@ public class OrderServiceImpl implements OrderService {
 			responseDto.setCustomerId(order.getCustomer().getId());
 			responseDto.setDateTime(order.getDateTime());
 			// responseDto.setPaymentAmount(order.getPayment().getAmount());
-			responseDto.setPlanIds(order.getPlans().stream().map(plan -> plan.getId()).collect(Collectors.toList()));
+			order.getPlans().forEach(p->{
+				responseDto.setName(p.getName()) ;
+				responseDto.setPrice(p.getPrice());
+				responseDto.setPlanIds(p.getId());
+			});
+			//responseDto.setPlanIds();
 			orderDetails.add(responseDto);
 		});
 		return orderDetails;

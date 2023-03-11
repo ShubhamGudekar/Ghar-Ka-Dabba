@@ -138,7 +138,14 @@ function ChangePassword() {
                                     <tbody>
                                         <tr>
                                             <td><button className="btn btn-success" onClick={submitData}>Change</button></td>
-                                            <td><button className="btn btn-danger" onClick={() => navigate("/vendor")} style={{ marginLeft: "10px" }}>Cancel</button></td>
+                                            <td><button className="btn btn-danger" onClick={() => {
+                                                if (userRole == "ven") {
+                                                    navigate(`/vendor`)
+                                                }
+                                                else if (userRole == "cust") {
+                                                    navigate(`/customer`)
+                                                }
+                                            }} style={{ marginLeft: "10px" }}>Cancel</button></td>
                                         </tr>
                                     </tbody>
                                 </table>

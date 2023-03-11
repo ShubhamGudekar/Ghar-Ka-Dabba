@@ -100,7 +100,11 @@ public class CustomerController {
 	
 	@PostMapping("/findByEmail")
 	public ResponseEntity<?> findByEmail(@RequestBody String email){
-		System.out.println(email);
 		return new ResponseEntity<>(custService.getByEmail(email),HttpStatus.OK);
+	}
+	
+	@GetMapping("/ongoingPlans/{id}")
+	public ResponseEntity<?> getOngoingPlansByCustId(@PathVariable Long id){
+		return new ResponseEntity<>(custService.getAllOngoingSubPlan(id),HttpStatus.OK);
 	}
 }

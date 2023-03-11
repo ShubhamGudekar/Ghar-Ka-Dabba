@@ -1,6 +1,8 @@
 package com.app.service;
 
 import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -13,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.AddressDto;
 import com.app.dto.CustDetailsDto;
+import com.app.dto.CustSubPlanDto;
 import com.app.dto.EditUserDetailsDto;
 import com.app.dto.SubscriptionPlanDto;
 import com.app.entities.Address;
@@ -123,7 +126,24 @@ public class CustomerServiceImpl implements CustomerService {
 		System.out.println(customer);
 		return mapper.map(customer, CustDetailsDto.class);
 	}
-	
-	
+
+	@Override
+	public List<CustSubPlanDto> getAllOngoingSubPlan(Long id) {
+		Customer customer = customerRepo.findById(id).orElseThrow();
+		List<CustSubPlanDto> planDtos = new ArrayList<CustSubPlanDto>();
+		customer.getPlans().forEach(p -> {
+			CustSubPlanDto dto = new CustSubPlanDto();
+			dto.setCustId(id);
+			dto.setStartDate(p.getStartDate());
+			dto.setEndDate(p.getEndDate());
+			dto.setPlanId(p.getSubscriptionPlan().getId());
+			dto.setPlanName(p.getSubscriptionPlan().getName());
+			planDtos.add(dto);
+		});
+		LocalDate d = LocalDate.now();
+		return planDtos
+				.stream().filter(p -> p.getEndDate().isAfter(d) || p.getStartDate().isBefore(d))
+				.collect(Collectors.toList());
+	}
 
 }

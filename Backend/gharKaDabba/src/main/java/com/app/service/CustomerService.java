@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.app.dto.AddressDto;
 import com.app.dto.CustDetailsDto;
+import com.app.dto.CustSubPlanDto;
 import com.app.dto.EditUserDetailsDto;
 import com.app.dto.SubscriptionPlanDto;
 
@@ -33,5 +34,7 @@ public interface CustomerService {
 	List<SubscriptionPlanDto> getSubscriptionPlans(Long id);
 
 	CustDetailsDto getByEmail(String email);
+	
+	public List<CustSubPlanDto> getAllOngoingSubPlan(Long id);
 
 }
