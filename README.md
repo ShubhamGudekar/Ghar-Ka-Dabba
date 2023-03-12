@@ -70,7 +70,14 @@ The Online tiffin service 'Ghar Ka Dabba' website is intended to provide complet
  
 - Forgot Password Page
 ![](ScreenShots/ForgotPassword.png)
-<!-- ![](ScreenShots/ChangePassword.png) -->
+
+
+- Change Password Page
+![](ScreenShots/ChangePassword.png)
+
+
+- Modifying URL to access UnAuthorized Section 
+![](ScreenShots/AccessRestricted.png)
 
 
 - Vendor Main Page
